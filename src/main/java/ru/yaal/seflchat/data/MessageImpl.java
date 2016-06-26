@@ -11,7 +11,7 @@ public class MessageImpl implements Message {
     }
 
     @Override
-    public String getMessage() {
+    public String getContent() {
         return content;
     }
 }
