@@ -13,6 +13,8 @@ public class BeanDataSource implements DataSource {
         Dialog dialog = new DialogImpl();
         dialog.addMessage(new MessageImpl("Hello! My name is Petr."));
         dialog.addMessage(new MessageImpl("Nice to meet you!"));
+        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
+        dialog.addMessage(new MessageImpl("How are you?"));
         dialogs.add(dialog);
     }
 

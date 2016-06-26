@@ -1,7 +1,8 @@
 package ru.yaal.seflchat.ui;
 
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.TextArea;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import ru.yaal.seflchat.data.Message;
 
@@ -17,14 +18,17 @@ public class MessagePanelImpl extends VerticalLayout implements MessagePanel {
 
     @Override
     public void addMessage(Message message) {
-        TextArea area = new TextArea();
-        area.setValue(message.getContent());
-        area.setReadOnly(true);
-        addComponent(area);
+        Label label = new Label();
+        label.setContentMode(ContentMode.HTML);
+        label.setReadOnly(true);
+        label.setWidth(70, Unit.PERCENTAGE);
+        addComponent(label);
         if (nextMessageRightAlignment) {
-            setComponentAlignment(area, Alignment.TOP_RIGHT);
+            label.setValue("<p align='right'>" + message.getContent() + "</p>");
+            setComponentAlignment(label, Alignment.TOP_RIGHT);
         } else {
-            setComponentAlignment(area, Alignment.TOP_LEFT);
+            label.setValue("<p align='left'>" + message.getContent() + "</p>");
+            setComponentAlignment(label, Alignment.TOP_LEFT);
         }
         nextMessageRightAlignment = !nextMessageRightAlignment;
     }
