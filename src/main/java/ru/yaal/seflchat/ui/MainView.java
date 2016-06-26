@@ -17,11 +17,11 @@ public class MainView extends VerticalLayout implements View {
         DataSource ds = new BeanDataSource();
         Dialog dialog = ds.getDialogs().get(0);
 
-        NewMessagePanel newMessagePanel = new NewMessagePanel(dialog, null);
+        MessagesPanel messagesPanel = new MessagesPanelImpl();
+        dialog.getMessages().forEach(messagesPanel::addMessage);
+        Component messagePanel1 = (Component) messagesPanel;
 
-        MessagePanel messagePanel = new MessagePanelImpl();
-        dialog.getMessages().forEach(messagePanel::addMessage);
-        Component messagePanel1 = (Component) messagePanel;
+        NewMessagePanel newMessagePanel = new NewMessagePanel(dialog, messagesPanel);
 
         GridLayout grid = new GridLayout(3, 2);
 

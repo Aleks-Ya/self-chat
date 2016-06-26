@@ -10,22 +10,22 @@ import ru.yaal.seflchat.data.MessageImpl;
  */
 public class NewMessagePanel extends VerticalLayout {
 
-    public NewMessagePanel(Dialog dialog, MessagePanel messagePanel) {
+    public NewMessagePanel(Dialog dialog, MessagesPanel messagesPanel) {
 
-        TextArea tfEnterMessage = new TextArea("Enter message:");
-        tfEnterMessage.setRows(5);
-        tfEnterMessage.setColumns(50);
+        TextArea area = new TextArea("Enter message:");
+        area.setRows(5);
+        area.setColumns(50);
 
-        tfEnterMessage.addValueChangeListener(event -> {
+        area.addValueChangeListener(event -> {
             String content = (String) event.getProperty().getValue();
             if (!content.isEmpty()) {
                 MessageImpl message = new MessageImpl(content);
                 dialog.addMessage(message);
-                messagePanel.addMessage(message);
-                tfEnterMessage.clear();
+                messagesPanel.addMessage(message);
+                area.clear();
             }
         });
-        addComponent(tfEnterMessage);
+        addComponent(area);
         setSizeFull();
     }
 }

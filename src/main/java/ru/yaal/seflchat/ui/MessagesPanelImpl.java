@@ -9,10 +9,10 @@ import ru.yaal.seflchat.data.Message;
 /**
  * @author Yablokov Aleksey
  */
-public class MessagePanelImpl extends VerticalLayout implements MessagePanel {
+public class MessagesPanelImpl extends VerticalLayout implements MessagesPanel {
     private boolean nextMessageRightAlignment = false;
 
-    public MessagePanelImpl() {
+    public MessagesPanelImpl() {
         setSpacing(true);
     }
 
