@@ -37,5 +37,6 @@ class NewMessagePanel extends VerticalLayout {
         addComponent(area);
         setComponentAlignment(area, Alignment.MIDDLE_CENTER);
         setSizeFull();
+        area.focus();
     }
 }
