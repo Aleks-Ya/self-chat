@@ -23,11 +23,10 @@ public class MainView extends VerticalLayout implements View {
 
         NewMessagePanel newMessagePanel = new NewMessagePanel(dialog, messagesPanel);
 
-        GridLayout grid = new GridLayout(3, 2);
+        GridLayout grid = new GridLayout(3, 8);
 
-        grid.addComponent(messagePanel1, 1, 0);
-        grid.addComponent(newMessagePanel, 1, 1);
-        grid.setRowExpandRatio(0, 1);
+        grid.addComponent(messagePanel1, 1, 0, 1, 6);
+        grid.addComponent(newMessagePanel, 1, 7, 1, 7);
         grid.setSizeFull();
         addComponent(grid);
 

@@ -15,9 +15,9 @@ public class MessagesPanelImpl extends Panel implements MessagesPanel {
     private final VerticalLayout vertical = new VerticalLayout();
 
     public MessagesPanelImpl() {
-        setHeight(70, Unit.PERCENTAGE);
         vertical.setSpacing(true);
         setContent(vertical);
+        setSizeFull();
     }
 
     @Override
