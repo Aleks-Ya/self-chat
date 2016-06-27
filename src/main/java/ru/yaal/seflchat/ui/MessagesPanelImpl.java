@@ -10,13 +10,11 @@ import ru.yaal.seflchat.data.Message;
 /**
  * @author Yablokov Aleksey
  */
-public class MessagesPanelImpl extends Panel implements MessagesPanel {
+class MessagesPanelImpl extends Panel implements MessagesPanel {
     private boolean nextMessageRightAlignment = false;
     private final VerticalLayout vertical = new VerticalLayout();
 
-    public MessagesPanelImpl() {
-        vertical.setSpacing(true);
-
+    MessagesPanelImpl() {
         vertical.addComponentAttachListener(event -> markAsDirty());
         setScrollTop(9999);
 

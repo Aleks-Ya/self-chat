@@ -5,6 +5,6 @@ import ru.yaal.seflchat.data.Message;
 /**
  * @author Yablokov Aleksey
  */
-public interface MessagesPanel {
+interface MessagesPanel {
     void addMessage(Message message);
 }

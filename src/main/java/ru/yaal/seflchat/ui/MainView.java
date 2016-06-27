@@ -11,8 +11,8 @@ import ru.yaal.seflchat.data.Dialog;
 /**
  * @author Yablokov Aleksey
  */
-public class MainView extends VerticalLayout implements View {
-    public MainView(DataSource ds) {
+class MainView extends VerticalLayout implements View {
+    MainView(DataSource ds) {
         Dialog dialog = ds.getDialogs().get(0);
 
         MessagesPanel messagesPanel = new MessagesPanelImpl();

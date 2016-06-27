@@ -11,9 +11,9 @@ import ru.yaal.seflchat.data.MessageImpl;
 /**
  * @author Yablokov Aleksey
  */
-public class NewMessagePanel extends VerticalLayout {
+class NewMessagePanel extends VerticalLayout {
 
-    public NewMessagePanel(Dialog dialog, MessagesPanel messagesPanel) {
+    NewMessagePanel(Dialog dialog, MessagesPanel messagesPanel) {
 
         TextArea area = new TextArea("Enter message:");
         area.setRows(5);

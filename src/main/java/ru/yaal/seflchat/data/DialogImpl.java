@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author Yablokov Aleksey
  */
-public class DialogImpl implements Dialog {
+class DialogImpl implements Dialog {
     private List<Message> messages = new ArrayList<>();
 
     @Override
