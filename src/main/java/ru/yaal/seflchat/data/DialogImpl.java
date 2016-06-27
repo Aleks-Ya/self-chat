@@ -7,15 +7,15 @@ import java.util.List;
  * @author Yablokov Aleksey
  */
 public class DialogImpl implements Dialog {
-    private List<MessageImpl> messages = new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 
     @Override
-    public List<MessageImpl> getMessages() {
+    public List<Message> getMessages() {
         return messages;
     }
 
     @Override
-    public void addMessage(MessageImpl message) {
+    public void addMessage(Message message) {
         messages.add(message);
     }
 }

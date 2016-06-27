@@ -5,7 +5,6 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
-import ru.yaal.seflchat.data.BeanDataSource;
 import ru.yaal.seflchat.data.DataSource;
 import ru.yaal.seflchat.data.Dialog;
 
@@ -13,8 +12,7 @@ import ru.yaal.seflchat.data.Dialog;
  * @author Yablokov Aleksey
  */
 public class MainView extends VerticalLayout implements View {
-    public MainView() {
-        DataSource ds = new BeanDataSource();
+    public MainView(DataSource ds) {
         Dialog dialog = ds.getDialogs().get(0);
 
         MessagesPanel messagesPanel = new MessagesPanelImpl();

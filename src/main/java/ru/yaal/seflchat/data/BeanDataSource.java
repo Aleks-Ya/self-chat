@@ -11,21 +11,15 @@ public class BeanDataSource implements DataSource {
 
     public BeanDataSource() {
         Dialog dialog = new DialogImpl();
-        dialog.addMessage(new MessageImpl("Hello! My name is Petr."));
-        dialog.addMessage(new MessageImpl("Nice to meet you!"));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. Very long message. "));
-        dialog.addMessage(new MessageImpl("How are you?"));
         dialogs.add(dialog);
     }
 
     @Override
     public List<Dialog> getDialogs() {
         return dialogs;
+    }
+
+    protected void addMessage(Message message) {
+        dialogs.get(0).addMessage(message);
     }
 }

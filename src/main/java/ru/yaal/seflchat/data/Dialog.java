@@ -6,7 +6,7 @@ import java.util.List;
  * @author Yablokov Aleksey
  */
 public interface Dialog {
-    List<MessageImpl> getMessages();
+    List<Message> getMessages();
 
-    void addMessage(MessageImpl message);
+    void addMessage(Message message);
 }
