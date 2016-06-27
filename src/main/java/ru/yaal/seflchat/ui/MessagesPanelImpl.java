@@ -16,6 +16,10 @@ public class MessagesPanelImpl extends Panel implements MessagesPanel {
 
     public MessagesPanelImpl() {
         vertical.setSpacing(true);
+
+        vertical.addComponentAttachListener(event -> markAsDirty());
+        setScrollTop(9999);
+
         setContent(vertical);
         setSizeFull();
     }
