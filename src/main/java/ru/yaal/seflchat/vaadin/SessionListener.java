@@ -57,9 +57,12 @@ public class SessionListener implements SessionInitListener, SessionDestroyListe
     }
 
     private static Cookie getCookieByName(VaadinRequest request, String cookieName) {
-        for (Cookie cookie : request.getCookies()) {
-            if (cookieName.equals(cookie.getName())) {
-                return cookie;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookieName.equals(cookie.getName())) {
+                    return cookie;
+                }
             }
         }
         return null;
