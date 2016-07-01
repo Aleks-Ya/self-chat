@@ -19,9 +19,9 @@ import java.time.Instant;
  * @author Yablokov Aleksey
  */
 @Component
-class SessionListener implements SessionInitListener, SessionDestroyListener {
+public class SessionListener implements SessionInitListener, SessionDestroyListener {
     private static final String cookieName = "self-char";
-    private static final String currentUserAttr = "current-user";
+    public static final String currentUserAttr = "current-user";
 
     private final UserRepository repo;
 

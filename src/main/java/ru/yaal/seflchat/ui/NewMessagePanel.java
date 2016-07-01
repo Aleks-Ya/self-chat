@@ -2,19 +2,25 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
-import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.data.MessageImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.yaal.seflchat.data.Message;
+import ru.yaal.seflchat.service.DataService;
+
+import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 
 /**
  * @author Yablokov Aleksey
  */
+@Component
 class NewMessagePanel extends VerticalLayout {
 
-    NewMessagePanel(Dialog dialog, MessagesPanel messagesPanel) {
-
+    @Autowired
+    NewMessagePanel(DataService dataService, MessagesPanel messagesPanel) {
         TextArea area = new TextArea("Enter message:");
         area.setRows(5);
         area.setColumns(50);
@@ -25,8 +31,9 @@ class NewMessagePanel extends VerticalLayout {
             public void handleAction(Object sender, Object target) {
                 String content = ((TextArea) target).getValue();
                 if (!content.isEmpty()) {
-                    MessageImpl message = new MessageImpl(content);
-                    dialog.addMessage(message);
+                    Message message = new Message(content);
+                    VaadinSession.getCurrent().getAttribute(currentUserAttr);
+                    dataService.addMessageToCurrentDialog(message);
                     messagesPanel.addMessage(message);
                     area.clear();
                 }

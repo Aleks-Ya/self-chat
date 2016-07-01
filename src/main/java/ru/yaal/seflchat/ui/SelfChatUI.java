@@ -2,25 +2,24 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinServlet;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
-import ru.yaal.seflchat.data.BeanDataSource;
-import ru.yaal.seflchat.data.TestBeanDataSource;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @SuppressWarnings("WeakerAccess")
 @SpringUI
 public class SelfChatUI extends UI {
+
     @Override
     protected void init(VaadinRequest vaadinRequest) {
         Navigator n = new Navigator(this, this);
-        n.addView("", new MainView(new BeanDataSource()));
-        String testName = "test";
-        n.addView(testName, new MainView(new TestBeanDataSource()));
-        if ("/test".equals(vaadinRequest.getPathInfo())) {
-            n.navigateTo(testName);
-        } else {
-            n.navigateTo("");
-        }
+
+        SpringViewProvider provider = WebApplicationContextUtils.getRequiredWebApplicationContext(
+                VaadinServlet.getCurrent().getServletContext()).getBean(SpringViewProvider.class);
+
+        n.addProvider(provider);
         setSizeFull();
     }
 }
