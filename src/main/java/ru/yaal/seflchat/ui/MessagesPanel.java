@@ -17,6 +17,7 @@ class MessagesPanel extends Panel {
     private final VerticalLayout vertical = new VerticalLayout();
 
     MessagesPanel() {
+        vertical.removeAllComponents();
         vertical.addComponentAttachListener(event -> markAsDirty());
         setScrollTop(9999);
 
