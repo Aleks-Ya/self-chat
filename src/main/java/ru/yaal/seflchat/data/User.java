@@ -1,6 +1,12 @@
 package ru.yaal.seflchat.data;
 
+import org.springframework.data.annotation.Id;
+
+/**
+ * @author Yablokov Aleksey
+ */
 public class User {
+    @Id
     private String id;
     private String login;
     private String passwordHash;
