@@ -1,8 +1,10 @@
 package ru.yaal.seflchat.spring;
 
 import com.mongodb.Mongo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
@@ -13,14 +15,15 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 
 @Configuration
-public class MongoConfiguration {
+class MongoConfiguration {
+
+    @Autowired
+    private MongoCredentials credentials;
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
-//        UserCredentials userCredentials = new UserCredentials("joe", "secret");
-//        return new SimpleMongoDbFactory(new Mongo(), "database", userCredentials);
-//        UserCredentials userCredentials = new UserCredentials("joe", "secret");
-        return new SimpleMongoDbFactory(new Mongo(), "selfchat");
+        UserCredentials userCredentials = new UserCredentials(credentials.getLogin(), credentials.getPassword());
+        return new SimpleMongoDbFactory(new Mongo(credentials.getDbHost(), credentials.getDbPort()), credentials.getDbName(), userCredentials);
     }
 
     @Bean

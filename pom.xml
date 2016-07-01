@@ -95,13 +95,20 @@
                         <failOnMissingWebXml>false</failOnMissingWebXml>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>1.2.7.RELEASE</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.2.7.RELEASE</version>
+                <configuration>
+                    <profiles>test</profiles>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -124,6 +131,13 @@
                             <failOnMissingWebXml>false</failOnMissingWebXml>
                             <outputDirectory>deployments</outputDirectory>
                             <warName>ROOT</warName>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <configuration>
+                            <profiles>openshift</profiles>
                         </configuration>
                     </plugin>
                 </plugins>
