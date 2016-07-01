@@ -6,6 +6,7 @@ import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
@@ -17,10 +18,12 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
  * @author Yablokov Aleksey
  */
 @Component
+@Log
 class NewMessagePanel extends VerticalLayout {
 
     @Autowired
     NewMessagePanel(DataService dataService, MessagesPanel messagesPanel) {
+        log.info("Create " + getClass().getSimpleName());
         TextArea area = new TextArea("Enter message:");
         area.setRows(5);
         area.setColumns(50);

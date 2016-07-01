@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Profile("openshift")
-class OpenShiftMongoCredentials implements MongoCredentials {
+class OpenShiftMongoCredentials extends AbstractMongoCredentials {
     @Override
     public String getDbHost() {
         return System.getenv("OPENSHIFT_MONGODB_DB_HOST");

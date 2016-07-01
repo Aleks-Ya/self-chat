@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Profile("test")
-class TestMongoCredentials implements MongoCredentials {
+class TestMongoCredentials extends AbstractMongoCredentials {
 
     @Override
     public String getDbHost() {

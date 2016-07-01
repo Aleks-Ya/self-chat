@@ -1,6 +1,7 @@
 package ru.yaal.seflchat.spring;
 
 import com.mongodb.Mongo;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 
 @Configuration
+@Log
 class MongoConfiguration {
 
     @Autowired
@@ -22,6 +24,7 @@ class MongoConfiguration {
 
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
+        log.info("MongoDB configurations: " + credentials);
         UserCredentials userCredentials = new UserCredentials(credentials.getLogin(), credentials.getPassword());
         return new SimpleMongoDbFactory(new Mongo(credentials.getDbHost(), credentials.getDbPort()), credentials.getDbName(), userCredentials);
     }
