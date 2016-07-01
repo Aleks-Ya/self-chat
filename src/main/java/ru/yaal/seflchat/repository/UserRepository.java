@@ -8,4 +8,6 @@ import ru.yaal.seflchat.data.User;
  */
 public interface UserRepository extends MongoRepository<User, String> {
     User findByLogin(String login);
+
+    User findByCookieValue(String cookieValue);
 }

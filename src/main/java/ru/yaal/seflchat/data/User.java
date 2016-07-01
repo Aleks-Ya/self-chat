@@ -10,11 +10,13 @@ public class User {
     private String id;
     private String login;
     private String passwordHash;
+    private String cookieValue;
 
-    public User(String id, String login, String passwordHash) {
+    public User(String id, String login, String passwordHash, String cookieValue) {
         this.id = id;
         this.login = login;
         this.passwordHash = passwordHash;
+        this.cookieValue = cookieValue;
     }
 
     public String getId() {
@@ -27,5 +29,9 @@ public class User {
 
     public String getPasswordHash() {
         return passwordHash;
+    }
+
+    public String getCookieValue() {
+        return cookieValue;
     }
 }
