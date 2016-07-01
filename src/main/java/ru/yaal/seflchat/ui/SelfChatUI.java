@@ -2,11 +2,13 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.UI;
 import ru.yaal.seflchat.data.BeanDataSource;
 import ru.yaal.seflchat.data.TestBeanDataSource;
 
 @SuppressWarnings("WeakerAccess")
+@SpringUI
 public class SelfChatUI extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
