@@ -156,13 +156,6 @@
                             <warName>ROOT</warName>
                         </configuration>
                     </plugin>
-                    <plugin>
-                        <groupId>org.springframework.boot</groupId>
-                        <artifactId>spring-boot-maven-plugin</artifactId>
-                        <configuration>
-                            <profiles>openshift</profiles>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
