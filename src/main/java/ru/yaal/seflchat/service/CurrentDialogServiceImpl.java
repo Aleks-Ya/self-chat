@@ -65,6 +65,17 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
         eventListeners(dialog);
     }
 
+    @Override
+    public Message.Alignment getNextMessageAlignment() {
+        List<Message> messages = getCurrentDialog().getMessages();
+        if (messages.isEmpty()) {
+            return Message.Alignment.LEFT;
+        } else {
+            Message.Alignment lastAlignment = messages.get(messages.size() - 1).getAlignment();
+            return lastAlignment == Message.Alignment.RIGHT ? Message.Alignment.LEFT : Message.Alignment.RIGHT;
+        }
+    }
+
     public synchronized Dialog addMessageToCurrentDialog(Message message) {
         Dialog dialog = repo.save(getCurrentDialog().withAddMessage(message));
         setCurrentDialog(dialog);

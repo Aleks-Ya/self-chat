@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.data;
 
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 /**
  * @author Yablokov Aleksey
  */
+@Getter
 public class Dialog {
 
     public Dialog() {
@@ -28,19 +30,7 @@ public class Dialog {
 
     private String userId;
 
-    public String getId() {
-        return id;
-    }
-
     private List<Message> messages = new ArrayList<>();
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void addMessage(Message message) {
-        messages.add(message);
-    }
 
     public Dialog withAddMessage(Message message) {
         ArrayList<Message> messages = new ArrayList<>(this.messages);

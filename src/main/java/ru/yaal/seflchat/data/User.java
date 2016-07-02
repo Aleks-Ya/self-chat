@@ -1,10 +1,12 @@
 package ru.yaal.seflchat.data;
 
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 /**
  * @author Yablokov Aleksey
  */
+@Getter
 public class User {
     @Id
     private String id;
@@ -17,22 +19,6 @@ public class User {
         this.login = login;
         this.passwordHash = passwordHash;
         this.cookieValue = cookieValue;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public String getCookieValue() {
-        return cookieValue;
     }
 
     @Override

@@ -34,7 +34,8 @@ class NewMessagePanel extends VerticalLayout {
             public void handleAction(Object sender, Object target) {
                 String content = ((TextArea) target).getValue();
                 if (!content.isEmpty()) {
-                    Message message = new Message(content);
+                    Message.Alignment alignment = service.getNextMessageAlignment();
+                    Message message = new Message(content, alignment);
                     VaadinSession.getCurrent().getAttribute(currentUserAttr);
                     service.addMessageToCurrentDialog(message);
                     area.clear();

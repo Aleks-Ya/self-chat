@@ -18,7 +18,6 @@ import ru.yaal.seflchat.service.CurrentDialogService;
 @Component
 @Slf4j
 class MessagesPanel extends Panel implements CurrentDialogService.DialogListener {
-    private boolean nextMessageRightAlignment = false;
     private final VerticalLayout vertical = new VerticalLayout();
     private CurrentDialogService service;
 
@@ -39,14 +38,13 @@ class MessagesPanel extends Panel implements CurrentDialogService.DialogListener
         label.setReadOnly(true);
         label.setWidth(70, Unit.PERCENTAGE);
         vertical.addComponent(label);
-        if (nextMessageRightAlignment) {
+        if (message.getAlignment() == Message.Alignment.RIGHT) {
             label.setValue("<p align='right'>" + message.getContent() + "</p>");
             vertical.setComponentAlignment(label, Alignment.TOP_RIGHT);
         } else {
             label.setValue("<p align='left'>" + message.getContent() + "</p>");
             vertical.setComponentAlignment(label, Alignment.TOP_LEFT);
         }
-        nextMessageRightAlignment = !nextMessageRightAlignment;
     }
 
     @Override

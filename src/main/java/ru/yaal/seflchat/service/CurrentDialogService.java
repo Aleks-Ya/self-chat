@@ -20,6 +20,8 @@ public interface CurrentDialogService {
 
     void setCurrentDialog(Dialog dialog);
 
+    Message.Alignment getNextMessageAlignment();
+
     interface DialogListener {
         void dialogChanged(Dialog dialog);
     }
