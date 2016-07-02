@@ -76,6 +76,11 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
         }
     }
 
+    @Override
+    public void clearCurrentDialog() {
+        setCurrentDialog(getCurrentDialog().withClearMessages());
+    }
+
     public synchronized Dialog addMessageToCurrentDialog(Message message) {
         Dialog dialog = repo.save(getCurrentDialog().withAddMessage(message));
         setCurrentDialog(dialog);

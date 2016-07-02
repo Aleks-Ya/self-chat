@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -35,7 +36,11 @@ public class Dialog {
     public Dialog withAddMessage(Message message) {
         ArrayList<Message> messages = new ArrayList<>(this.messages);
         messages.add(message);
-        return new Dialog(id, userId, messages);
+        return new Dialog(id, userId, Collections.unmodifiableList(messages));
+    }
+
+    public Dialog withClearMessages() {
+        return new Dialog(id, userId, Collections.emptyList());
     }
 
     @Override

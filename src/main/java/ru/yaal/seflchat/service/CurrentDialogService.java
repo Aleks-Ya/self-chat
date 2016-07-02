@@ -22,6 +22,8 @@ public interface CurrentDialogService {
 
     Message.Alignment getNextMessageAlignment();
 
+    void clearCurrentDialog();
+
     interface DialogListener {
         void dialogChanged(Dialog dialog);
     }
