@@ -5,7 +5,7 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yaal.seflchat.service.DataService;
 
@@ -13,7 +13,7 @@ import ru.yaal.seflchat.service.DataService;
  * @author Yablokov Aleksey
  */
 @SpringView(name = "")
-@Log
+@Slf4j
 class MainView extends VerticalLayout implements View {
 
     @Autowired

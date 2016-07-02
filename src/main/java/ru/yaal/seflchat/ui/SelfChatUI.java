@@ -6,12 +6,12 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.UI;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 @SuppressWarnings("WeakerAccess")
 @SpringUI
-@Log
+@Slf4j
 public class SelfChatUI extends UI {
 
     @Override

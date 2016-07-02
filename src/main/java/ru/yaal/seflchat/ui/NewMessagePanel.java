@@ -6,7 +6,7 @@ import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
@@ -18,7 +18,7 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
  * @author Yablokov Aleksey
  */
 @Component
-@Log
+@Slf4j
 class NewMessagePanel extends VerticalLayout {
 
     @Autowired

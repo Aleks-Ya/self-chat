@@ -1,7 +1,7 @@
 package ru.yaal.seflchat.spring;
 
 import com.mongodb.Mongo;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 
 @Configuration
-@Log
+@Slf4j
 class MongoConfiguration {
 
     @Autowired

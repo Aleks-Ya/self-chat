@@ -5,7 +5,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
 
@@ -13,7 +13,7 @@ import ru.yaal.seflchat.data.Message;
  * @author Yablokov Aleksey
  */
 @Component
-@Log
+@Slf4j
 class MessagesPanel extends Panel {
     private boolean nextMessageRightAlignment = false;
     private final VerticalLayout vertical = new VerticalLayout();
