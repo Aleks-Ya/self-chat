@@ -6,29 +6,34 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
+import ru.yaal.seflchat.service.CurrentDialogService;
 
 /**
  * @author Yablokov Aleksey
  */
 @Component
 @Slf4j
-class MessagesPanel extends Panel {
+class MessagesPanel extends Panel implements CurrentDialogService.DialogListener {
     private boolean nextMessageRightAlignment = false;
     private final VerticalLayout vertical = new VerticalLayout();
+    private CurrentDialogService service;
 
-    MessagesPanel() {
+    @Autowired
+    MessagesPanel(CurrentDialogService service) {
+        this.service = service;
         log.info("Create " + getClass().getSimpleName());
-        vertical.removeAllComponents();
-        vertical.addComponentAttachListener(event -> markAsDirty());
+//        vertical.addComponentAttachListener(event -> markAsDirty());
         setScrollTop(9999);
-
+        service.addListener(this);
         setContent(vertical);
         setSizeFull();
     }
 
-    void addMessage(Message message) {
+    private void addMessage(Message message) {
         Label label = new Label();
         label.setContentMode(ContentMode.HTML);
         label.setReadOnly(true);
@@ -42,5 +47,11 @@ class MessagesPanel extends Panel {
             vertical.setComponentAlignment(label, Alignment.TOP_LEFT);
         }
         nextMessageRightAlignment = !nextMessageRightAlignment;
+    }
+
+    @Override
+    public void dialogChanged(Dialog dialog) {
+        vertical.removeAllComponents();
+        service.getCurrentDialog().getMessages().forEach(this::addMessage);
     }
 }

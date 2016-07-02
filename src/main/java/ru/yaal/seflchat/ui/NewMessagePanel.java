@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.service.DataService;
+import ru.yaal.seflchat.service.CurrentDialogService;
 
 import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 
@@ -22,7 +22,7 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 class NewMessagePanel extends VerticalLayout {
 
     @Autowired
-    NewMessagePanel(DataService dataService, MessagesPanel messagesPanel) {
+    NewMessagePanel(CurrentDialogService service) {
         log.info("Create " + getClass().getSimpleName());
         TextArea area = new TextArea("Enter message:");
         area.setRows(5);
@@ -36,8 +36,7 @@ class NewMessagePanel extends VerticalLayout {
                 if (!content.isEmpty()) {
                     Message message = new Message(content);
                     VaadinSession.getCurrent().getAttribute(currentUserAttr);
-                    dataService.addMessageToCurrentDialog(message);
-                    messagesPanel.addMessage(message);
+                    service.addMessageToCurrentDialog(message);
                     area.clear();
                 }
             }

@@ -34,4 +34,14 @@ public class User {
     public String getCookieValue() {
         return cookieValue;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", login='" + login + '\'' +
+                ", passwordHash='" + passwordHash + '\'' +
+                ", cookieValue='" + cookieValue + '\'' +
+                '}';
+    }
 }

@@ -47,4 +47,13 @@ public class Dialog {
         messages.add(message);
         return new Dialog(id, userId, messages);
     }
+
+    @Override
+    public String toString() {
+        return "Dialog{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", messages=" + messages.size() +
+                '}';
+    }
 }

@@ -7,7 +7,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yaal.seflchat.service.DataService;
+import ru.yaal.seflchat.service.CurrentDialogService;
 
 /**
  * @author Yablokov Aleksey
@@ -17,9 +17,8 @@ import ru.yaal.seflchat.service.DataService;
 class MainView extends VerticalLayout implements View {
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, DataService dataService, MessagesPanel messagesPanel) {
+    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service, MessagesPanel messagesPanel) {
         log.info("Create " + getClass().getSimpleName());
-        dataService.getCurrentDialog().getMessages().forEach(messagesPanel::addMessage);
 
         GridLayout grid = new GridLayout(3, 8);
         grid.addComponent(messagesPanel, 1, 0, 1, 6);
@@ -28,6 +27,7 @@ class MainView extends VerticalLayout implements View {
         addComponent(grid);
 
         setSizeFull();
+        service.getCurrentDialog();
     }
 
     @Override

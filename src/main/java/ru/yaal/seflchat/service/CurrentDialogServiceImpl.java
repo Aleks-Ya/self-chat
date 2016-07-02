@@ -8,6 +8,7 @@ import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.repository.DialogRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
@@ -16,12 +17,13 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
  * @author Yablokov Aleksey
  */
 @Service
-public class DataService {
+class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
     private static final String currentDialogAttr = "currentDialogAttr";
+    private final List<DialogListener> listeners = new ArrayList<>();
 
     @Autowired
-    private DataService(DialogRepository repo) {
+    private CurrentDialogServiceImpl(DialogRepository repo) {
         this.repo = repo;
     }
 
@@ -34,26 +36,43 @@ public class DataService {
         return (User) VaadinSession.getCurrent().getAttribute(currentUserAttr);
     }
 
-    public Dialog createDialogForCurrentUser() {
+    private Dialog createDialogForCurrentUser() {
         Dialog dialog = new Dialog(getCurrentUser().getId());
         repo.insert(dialog);
         return dialog;
+    }
+
+    private void eventListeners(Dialog dialog) {
+        listeners.forEach(listener -> listener.dialogChanged(dialog));
     }
 
     public synchronized Dialog getCurrentDialog() {
         Dialog dialog = (Dialog) VaadinSession.getCurrent().getAttribute(currentDialogAttr);
         if (dialog == null) {
             List<Dialog> dialogs = getCurrentUserDialogs();
-            return dialogs.isEmpty() ? createDialogForCurrentUser() : dialogs.get(0);
+            if (dialogs.isEmpty()) {
+                dialog = createDialogForCurrentUser();
+            } else {
+                dialog = dialogs.get(0);
+            }
+            setCurrentDialog(dialog);
         }
         return dialog;
     }
 
     public synchronized void setCurrentDialog(Dialog dialog) {
         VaadinSession.getCurrent().setAttribute(currentDialogAttr, dialog);
+        eventListeners(dialog);
     }
 
     public synchronized Dialog addMessageToCurrentDialog(Message message) {
-        return repo.save(getCurrentDialog().withAddMessage(message));
+        Dialog dialog = repo.save(getCurrentDialog().withAddMessage(message));
+        setCurrentDialog(dialog);
+        return dialog;
+    }
+
+    @Override
+    public void addListener(DialogListener listener) {
+        listeners.add(listener);
     }
 }

@@ -1,10 +1,12 @@
 package ru.yaal.seflchat.data;
 
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 /**
  * @author Yablokov Aleksey
  */
+@ToString
 public class Message {
     @Id
     private String id;
