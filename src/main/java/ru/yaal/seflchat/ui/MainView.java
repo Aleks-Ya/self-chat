@@ -19,11 +19,14 @@ import ru.yaal.seflchat.service.CurrentDialogService;
 class MainView extends VerticalLayout implements View {
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service, MessagesPanel messagesPanel) {
+    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service) {
         log.info("Create " + getClass().getSimpleName());
 
         Button bClear = new Button("Clear dialog");
         bClear.addClickListener(event -> service.clearCurrentDialog());
+
+        MessagesPanel messagesPanel = new MessagesPanel();
+        service.addListener(messagesPanel);
 
         GridLayout grid = new GridLayout(3, 8);
         grid.addComponent(messagesPanel, 1, 0, 1, 6);

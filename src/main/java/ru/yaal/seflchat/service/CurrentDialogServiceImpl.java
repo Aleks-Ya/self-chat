@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.service;
 
+import com.vaadin.data.Property;
 import com.vaadin.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
     private static final String currentDialogAttr = "currentDialogAttr";
-    private final List<DialogListener> listeners = new ArrayList<>();
+    private final List<Property<Dialog>> listeners = new ArrayList<>();
 
     @Autowired
     private CurrentDialogServiceImpl(DialogRepository repo) {
@@ -43,7 +44,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     private void eventListeners(Dialog dialog) {
-        listeners.forEach(listener -> listener.dialogChanged(dialog));
+        listeners.forEach(listener -> listener.setValue(dialog));
     }
 
     public synchronized Dialog getCurrentDialog() {
@@ -88,7 +89,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     @Override
-    public void addListener(DialogListener listener) {
+    public void addListener(Property<Dialog> listener) {
         listeners.add(listener);
     }
 }
