@@ -42,6 +42,6 @@ class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> getUserByCookie(String cookieValue) {
-        return Optional.ofNullable(repo.findByCookieValue(cookieValue));
+        return repo.findByCookieValue(cookieValue);
     }
 }
