@@ -38,7 +38,7 @@ class MainView extends VerticalLayout implements View {
         grid.setComponentAlignment(bClear, Alignment.BOTTOM_RIGHT);
 
         setSizeFull();
-        service.getCurrentDialog();
+        service.fireCurrentDialogChanged();
     }
 
     @Override

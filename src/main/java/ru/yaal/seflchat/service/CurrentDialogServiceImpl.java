@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.repository.DialogRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 
 /**
  * @author Yablokov Aleksey
@@ -20,25 +17,22 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 @Service
 class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
+    private final UserService userService;
     private static final String currentDialogAttr = "currentDialogAttr";
     private final List<Property<Dialog>> listeners = new ArrayList<>();
 
     @Autowired
-    private CurrentDialogServiceImpl(DialogRepository repo) {
+    private CurrentDialogServiceImpl(DialogRepository repo, UserService userService) {
         this.repo = repo;
+        this.userService = userService;
     }
 
     public List<Dialog> getCurrentUserDialogs() {
-        User user = getCurrentUser();
-        return repo.findByUserId(user.getId());
-    }
-
-    private User getCurrentUser() {
-        return (User) VaadinSession.getCurrent().getAttribute(currentUserAttr);
+        return repo.findByUserId(userService.getCurrentUser().getId());
     }
 
     private Dialog createDialogForCurrentUser() {
-        Dialog dialog = new Dialog(getCurrentUser().getId());
+        Dialog dialog = new Dialog(userService.getCurrentUser().getId());
         repo.insert(dialog);
         return dialog;
     }
@@ -63,7 +57,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
 
     public synchronized void setCurrentDialog(Dialog dialog) {
         VaadinSession.getCurrent().setAttribute(currentDialogAttr, dialog);
-        eventListeners(dialog);
+        fireCurrentDialogChanged();
     }
 
     @Override
@@ -80,6 +74,11 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     @Override
     public void clearCurrentDialog() {
         setCurrentDialog(getCurrentDialog().withClearMessages());
+    }
+
+    @Override
+    public void fireCurrentDialogChanged() {
+        eventListeners(getCurrentDialog());
     }
 
     public synchronized Dialog addMessageToCurrentDialog(Message message) {

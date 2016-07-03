@@ -24,4 +24,6 @@ public interface CurrentDialogService {
     Message.Alignment getNextMessageAlignment();
 
     void clearCurrentDialog();
+
+    void fireCurrentDialogChanged();
 }

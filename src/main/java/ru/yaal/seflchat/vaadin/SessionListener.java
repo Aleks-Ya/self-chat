@@ -10,10 +10,11 @@ import com.vaadin.server.VaadinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.User;
-import ru.yaal.seflchat.repository.UserRepository;
+import ru.yaal.seflchat.service.UserService;
 
 import javax.servlet.http.Cookie;
 import java.time.Instant;
+import java.util.Optional;
 
 /**
  * @author Yablokov Aleksey
@@ -23,24 +24,24 @@ public class SessionListener implements SessionInitListener, SessionDestroyListe
     private static final String cookieName = "self-char";
     public static final String currentUserAttr = "current-user";
 
-    private final UserRepository repo;
+    private final UserService service;
 
     @Autowired
-    public SessionListener(UserRepository repo) {
-        this.repo = repo;
+    public SessionListener(UserService service) {
+        this.service = service;
     }
 
     @Override
     public void sessionInit(SessionInitEvent event) throws ServiceException {
         Cookie cookie = getCookieByName(event.getRequest(), cookieName);
         User user = takeUser(cookie);
-        event.getSession().setAttribute(currentUserAttr, user);
+        service.setCurrentUser(user);
     }
 
     private User takeUser(Cookie cookie) {
         if (cookie != null) {
-            User user = repo.findByCookieValue(cookie.getValue());
-            return user != null ? user : createNewUser(cookie.getValue());
+            Optional<User> user = service.getUserByCookie(cookie.getValue());
+            return user.orElseGet(() -> createNewUser(cookie.getValue()));
         } else {
             Cookie newCookie = new Cookie(cookieName, Instant.now().toString());
             newCookie.setMaxAge(Integer.MAX_VALUE);
@@ -51,9 +52,7 @@ public class SessionListener implements SessionInitListener, SessionDestroyListe
     }
 
     private User createNewUser(String value) {
-        User user = new User(null, "user_" + Instant.now(), "abcd", value);
-        repo.insert(user);
-        return user;
+        return service.createUser(new User(null, "user_" + Instant.now(), "abcd", value));
     }
 
     private static Cookie getCookieByName(VaadinRequest request, String cookieName) {
