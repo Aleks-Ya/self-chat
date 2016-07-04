@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @Slf4j
 @Profile(SpringProfiles.TEST)
-@ComponentScan(basePackages = {"ru.yaal.seflchat.data", "ru.yaal.seflchat.spring"})
+@ComponentScan(basePackages = {"ru.yaal.seflchat.data", "ru.yaal.seflchat.spring", "ru.yaal.seflchat.service"})
 @EnableMongoRepositories(basePackages = "ru.yaal.seflchat.repository")
 class TestConfiguration {
 

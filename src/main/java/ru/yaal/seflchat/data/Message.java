@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.data;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -9,6 +10,7 @@ import org.springframework.data.annotation.Id;
  */
 @ToString
 @Getter
+@EqualsAndHashCode
 public class Message {
     @Id
     private String id;

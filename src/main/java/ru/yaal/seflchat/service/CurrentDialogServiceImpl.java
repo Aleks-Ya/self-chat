@@ -1,7 +1,6 @@
 package ru.yaal.seflchat.service;
 
 import com.vaadin.data.Property;
-import com.vaadin.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.Correspondence;
@@ -23,14 +22,17 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
     private final UserService userService;
     private final CorrespondenceRepository correspondenceService;
+    private final VaadinService vaadinService;
     private static final String currentDialogAttr = "currentDialogAttr";
     private final List<Property<Dialog>> listeners = new ArrayList<>();
 
     @Autowired
-    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceRepository correspondenceService, UserService userService) {
+    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceRepository correspondenceService,
+                                     UserService userService, VaadinService vaadinService) {
         this.repo = repo;
         this.userService = userService;
         this.correspondenceService = correspondenceService;
+        this.vaadinService = vaadinService;
     }
 
     public List<Dialog> getCurrentUserDialogs() {
@@ -55,7 +57,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     public synchronized Dialog getCurrentDialog() {
-        Dialog dialog = (Dialog) VaadinSession.getCurrent().getAttribute(currentDialogAttr);
+        Dialog dialog = (Dialog) vaadinService.getCurrentVaadinSession().getAttribute(currentDialogAttr);
         if (dialog == null) {
             List<Dialog> dialogs = getCurrentUserDialogs();
             if (dialogs.isEmpty()) {
@@ -69,7 +71,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     public synchronized void setCurrentDialog(Dialog dialog) {
-        VaadinSession.getCurrent().setAttribute(currentDialogAttr, dialog);
+        vaadinService.getCurrentVaadinSession().setAttribute(currentDialogAttr, dialog);
         fireCurrentDialogChanged();
     }
 

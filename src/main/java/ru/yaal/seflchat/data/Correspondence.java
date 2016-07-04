@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.data;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @Getter
 @Document
+@EqualsAndHashCode
 public class Correspondence {
 
     public Correspondence() {

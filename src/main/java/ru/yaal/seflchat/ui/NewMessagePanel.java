@@ -2,7 +2,6 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
-import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.service.CurrentDialogService;
-
-import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 
 /**
  * @author Yablokov Aleksey
@@ -36,7 +33,6 @@ class NewMessagePanel extends VerticalLayout {
                 if (!content.isEmpty()) {
                     Message.Alignment alignment = service.getNextMessageAlignment();
                     Message message = new Message(content, alignment);
-                    VaadinSession.getCurrent().getAttribute(currentUserAttr);
                     service.addMessageToCurrentDialog(message);
                     area.clear();
                 }

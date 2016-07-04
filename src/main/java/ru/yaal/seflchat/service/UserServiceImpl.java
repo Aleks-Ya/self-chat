@@ -1,6 +1,5 @@
 package ru.yaal.seflchat.service;
 
-import com.vaadin.server.VaadinSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +18,12 @@ import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 class UserServiceImpl implements UserService {
 
     private final UserRepository repo;
+    private final VaadinService vaadinService;
 
     @Autowired
-    private UserServiceImpl(UserRepository repo) {
+    private UserServiceImpl(UserRepository repo, VaadinService vaadinService) {
         this.repo = repo;
+        this.vaadinService = vaadinService;
     }
 
     @Override
@@ -32,12 +33,12 @@ class UserServiceImpl implements UserService {
     }
 
     public User getCurrentUser() {
-        return (User) VaadinSession.getCurrent().getAttribute(currentUserAttr);
+        return (User) vaadinService.getCurrentVaadinSession().getAttribute(currentUserAttr);
     }
 
     @Override
     public void setCurrentUser(User user) {
-        VaadinSession.getCurrent().setAttribute(currentUserAttr, user);
+        vaadinService.getCurrentVaadinSession().setAttribute(currentUserAttr, user);
     }
 
     @Override
