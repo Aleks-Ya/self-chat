@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @author Yablokov Aleksey
  */
 @Component
-@Profile("test")
+@Profile(SpringProfiles.TEST)
 class TestMongoCredentials extends AbstractMongoCredentials {
 
     @Override
@@ -17,7 +17,7 @@ class TestMongoCredentials extends AbstractMongoCredentials {
 
     @Override
     public int getDbPort() {
-        return 27017;
+        return 27018;
     }
 
     @Override

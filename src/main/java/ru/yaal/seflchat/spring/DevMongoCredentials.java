@@ -7,16 +7,17 @@ import org.springframework.stereotype.Component;
  * @author Yablokov Aleksey
  */
 @Component
-@Profile(SpringProfiles.OPEN_SHIFT)
-class OpenShiftMongoCredentials extends AbstractMongoCredentials {
+@Profile(SpringProfiles.DEV)
+class DevMongoCredentials extends AbstractMongoCredentials {
+
     @Override
     public String getDbHost() {
-        return System.getenv("OPENSHIFT_MONGODB_DB_HOST");
+        return "localhost";
     }
 
     @Override
     public int getDbPort() {
-        return Integer.parseInt(System.getenv("OPENSHIFT_MONGODB_DB_PORT"));
+        return 27017;
     }
 
     @Override
@@ -26,11 +27,11 @@ class OpenShiftMongoCredentials extends AbstractMongoCredentials {
 
     @Override
     public String getLogin() {
-        return System.getenv("OPENSHIFT_MONGODB_DB_USERNAME");
+        return "";
     }
 
     @Override
     public String getPassword() {
-        return System.getenv("OPENSHIFT_MONGODB_DB_PASSWORD");
+        return "";
     }
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -17,7 +18,8 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
 @Configuration
 @Slf4j
-class MongoConfiguration {
+@Profile(SpringProfiles.OPEN_SHIFT)
+class OpenShiftMongoConfiguration {
 
     @Autowired
     private MongoCredentials credentials;
