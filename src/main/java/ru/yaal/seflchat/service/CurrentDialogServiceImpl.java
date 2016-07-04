@@ -4,12 +4,16 @@ import com.vaadin.data.Property;
 import com.vaadin.server.VaadinSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
+import ru.yaal.seflchat.data.User;
+import ru.yaal.seflchat.repository.CorrespondenceRepository;
 import ru.yaal.seflchat.repository.DialogRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Yablokov Aleksey
@@ -18,22 +22,31 @@ import java.util.List;
 class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
     private final UserService userService;
+    private final CorrespondenceRepository correspondenceService;
     private static final String currentDialogAttr = "currentDialogAttr";
     private final List<Property<Dialog>> listeners = new ArrayList<>();
 
     @Autowired
-    private CurrentDialogServiceImpl(DialogRepository repo, UserService userService) {
+    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceRepository correspondenceService, UserService userService) {
         this.repo = repo;
         this.userService = userService;
+        this.correspondenceService = correspondenceService;
     }
 
     public List<Dialog> getCurrentUserDialogs() {
-        return repo.findByUserId(userService.getCurrentUser().getId());
+        User user = userService.getCurrentUser();
+        Optional<Correspondence> correspondence = correspondenceService.findByUser(user);
+        if (correspondence.isPresent()) {
+            return correspondence.get().getUserDialogs();
+        } else {
+            throw new IllegalStateException("No Correspondences for user: " + user);
+        }
     }
 
     private Dialog createDialogForCurrentUser() {
-        Dialog dialog = new Dialog(userService.getCurrentUser().getId());
+        Dialog dialog = new Dialog();
         repo.insert(dialog);
+//        correspondence.findByUser()
         return dialog;
     }
 

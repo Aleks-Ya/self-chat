@@ -2,11 +2,13 @@ package ru.yaal.seflchat.data;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author Yablokov Aleksey
  */
 @Getter
+@Document
 public class User {
     @Id
     private String id;

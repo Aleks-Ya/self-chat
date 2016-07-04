@@ -9,6 +9,7 @@ import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.yaal.seflchat.service.CorrespondenceService;
 import ru.yaal.seflchat.service.CurrentDialogService;
 
 /**
@@ -19,7 +20,8 @@ import ru.yaal.seflchat.service.CurrentDialogService;
 class MainView extends VerticalLayout implements View {
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service) {
+    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service, CorrespondencePanel correspondencePanel,
+             CorrespondenceService correspondenceService) {
         log.info("Create " + getClass().getSimpleName());
 
         Button bClear = new Button("Clear dialog");
@@ -32,12 +34,14 @@ class MainView extends VerticalLayout implements View {
         grid.addComponent(messagesPanel, 1, 0, 1, 6);
         grid.addComponent(newMessagePanel, 1, 7, 1, 7);
         grid.addComponent(bClear, 2, 7, 2, 7);
+        grid.addComponent(correspondencePanel, 0, 0, 0, 7);
         grid.setSizeFull();
         addComponent(grid);
 
         grid.setComponentAlignment(bClear, Alignment.BOTTOM_RIGHT);
 
         setSizeFull();
+        correspondencePanel.setValue(correspondenceService.getCurrentCorrespondence());
         service.fireCurrentDialogChanged();
     }
 

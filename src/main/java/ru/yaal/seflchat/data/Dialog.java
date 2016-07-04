@@ -2,6 +2,7 @@ package ru.yaal.seflchat.data;
 
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,43 +12,38 @@ import java.util.List;
  * @author Yablokov Aleksey
  */
 @Getter
+@Document
 public class Dialog {
 
     public Dialog() {
     }
 
-    public Dialog(String userId) {
-        this.userId = userId;
-    }
-
-    private Dialog(String id, String userId, List<Message> messages) {
+    private Dialog(String id, List<Message> messages) {
         this.id = id;
-        this.userId = userId;
         this.messages = messages;
     }
 
     @Id
     private String id;
 
-    private String userId;
+    private String name;
 
     private List<Message> messages = new ArrayList<>();
 
     public Dialog withAddMessage(Message message) {
         ArrayList<Message> messages = new ArrayList<>(this.messages);
         messages.add(message);
-        return new Dialog(id, userId, Collections.unmodifiableList(messages));
+        return new Dialog(id, Collections.unmodifiableList(messages));
     }
 
     public Dialog withClearMessages() {
-        return new Dialog(id, userId, Collections.emptyList());
+        return new Dialog(id, Collections.emptyList());
     }
 
     @Override
     public String toString() {
         return "Dialog{" +
                 "id='" + id + '\'' +
-                ", userId='" + userId + '\'' +
                 ", messages=" + messages.size() +
                 '}';
     }
