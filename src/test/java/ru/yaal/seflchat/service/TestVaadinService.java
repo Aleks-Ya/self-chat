@@ -16,10 +16,16 @@ import java.util.Map;
 @Component
 @Profile(SpringProfiles.TEST)
 class TestVaadinService implements VaadinService {
+    private final TestVaadinSession session;
+
+    public TestVaadinService() throws ServiceException {
+        session = new TestVaadinSession();
+    }
+
     @Override
     @SneakyThrows
     public VaadinSession getCurrentVaadinSession() {
-        return new TestVaadinSession();
+        return session;
     }
 
     private static class TestVaadinSession extends VaadinSession {

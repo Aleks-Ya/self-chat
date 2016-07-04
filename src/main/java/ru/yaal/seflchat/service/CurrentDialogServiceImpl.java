@@ -3,16 +3,12 @@ package ru.yaal.seflchat.service;
 import com.vaadin.data.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.data.User;
-import ru.yaal.seflchat.repository.CorrespondenceRepository;
 import ru.yaal.seflchat.repository.DialogRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Yablokov Aleksey
@@ -20,35 +16,28 @@ import java.util.Optional;
 @Service
 class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
-    private final UserService userService;
-    private final CorrespondenceRepository correspondenceService;
+    private final CorrespondenceService correspondenceService;
     private final VaadinService vaadinService;
     private static final String currentDialogAttr = "currentDialogAttr";
     private final List<Property<Dialog>> listeners = new ArrayList<>();
 
     @Autowired
-    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceRepository correspondenceService,
-                                     UserService userService, VaadinService vaadinService) {
+    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceService correspondenceService,
+                                     VaadinService vaadinService) {
         this.repo = repo;
-        this.userService = userService;
         this.correspondenceService = correspondenceService;
         this.vaadinService = vaadinService;
     }
 
     public List<Dialog> getCurrentUserDialogs() {
-        User user = userService.getCurrentUser();
-        Optional<Correspondence> correspondence = correspondenceService.findByUser(user);
-        if (correspondence.isPresent()) {
-            return correspondence.get().getUserDialogs();
-        } else {
-            throw new IllegalStateException("No Correspondences for user: " + user);
-        }
+        return correspondenceService.getCurrentCorrespondence().getUserDialogs();
     }
 
     private Dialog createDialogForCurrentUser() {
         Dialog dialog = new Dialog();
         repo.insert(dialog);
-//        correspondence.findByUser()
+        setCurrentDialog(dialog);
+        correspondenceService.addDialog(dialog);
         return dialog;
     }
 

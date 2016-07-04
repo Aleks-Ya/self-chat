@@ -3,6 +3,7 @@ package ru.yaal.seflchat.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.Correspondence;
+import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.repository.CorrespondenceRepository;
 
 import java.util.ArrayList;
@@ -43,6 +44,13 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     @Override
     public Correspondence createCorrespondence(Correspondence correspondence) {
         return repo.insert(correspondence);
+    }
+
+    @Override
+    public void addDialog(Dialog dialog) {
+        Correspondence correspondence = getCurrentCorrespondence();
+        correspondence.getUserDialogs().add(dialog);
+        repo.save(correspondence);
     }
 
 
