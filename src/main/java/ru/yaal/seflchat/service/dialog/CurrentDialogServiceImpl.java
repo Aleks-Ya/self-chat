@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.dialog;
 
 import com.vaadin.data.Property;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.repository.DialogRepository;
+import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
+import ru.yaal.seflchat.service.vaadin.VaadinService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

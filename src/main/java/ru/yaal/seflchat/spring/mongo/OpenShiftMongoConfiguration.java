@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.spring;
+package ru.yaal.seflchat.spring.mongo;
 
 import com.mongodb.Mongo;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +10,7 @@ import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import ru.yaal.seflchat.spring.SpringProfiles;
 
 /**
  * @author Yablokov Aleksey

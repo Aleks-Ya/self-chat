@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.correspondence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -6,6 +6,8 @@ import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.repository.CorrespondenceRepository;
 import ru.yaal.seflchat.repository.DialogRepository;
+import ru.yaal.seflchat.service.user.UserService;
+import ru.yaal.seflchat.service.vaadin.VaadinService;
 
 import java.util.ArrayList;
 import java.util.List;

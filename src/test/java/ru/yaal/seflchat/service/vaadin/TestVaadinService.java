@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.vaadin;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

@@ -3,7 +3,7 @@ package ru.yaal.seflchat.service;
 import org.junit.Test;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.spring.BaseMongoTest;
+import ru.yaal.seflchat.spring.mongo.BaseMongoTest;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;

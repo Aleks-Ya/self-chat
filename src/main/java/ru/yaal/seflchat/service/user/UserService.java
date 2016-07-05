@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.user;
 
 import ru.yaal.seflchat.data.User;
 

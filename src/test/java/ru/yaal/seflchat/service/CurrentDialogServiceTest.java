@@ -3,7 +3,7 @@ package ru.yaal.seflchat.service;
 import org.junit.Test;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.spring.BaseMongoTest;
+import ru.yaal.seflchat.spring.mongo.BaseMongoTest;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;

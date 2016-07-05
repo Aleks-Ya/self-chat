@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.dialog;
 
 import com.vaadin.data.Property;
 import ru.yaal.seflchat.data.Dialog;

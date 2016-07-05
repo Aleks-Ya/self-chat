@@ -1,10 +1,11 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.repository.UserRepository;
+import ru.yaal.seflchat.service.vaadin.VaadinService;
 
 import javax.servlet.http.Cookie;
 import java.time.Instant;

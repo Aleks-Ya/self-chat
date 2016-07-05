@@ -1,7 +1,8 @@
-package ru.yaal.seflchat.spring;
+package ru.yaal.seflchat.spring.mongo;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import ru.yaal.seflchat.spring.SpringProfiles;
 
 /**
  * @author Yablokov Aleksey

@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.spring;
+package ru.yaal.seflchat.spring.mongo;
 
 import org.junit.Test;
 import ru.yaal.seflchat.data.User;

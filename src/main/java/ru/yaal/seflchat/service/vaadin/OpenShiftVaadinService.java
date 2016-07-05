@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.service;
+package ru.yaal.seflchat.service.vaadin;
 
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;

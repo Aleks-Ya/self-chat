@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.spring;
+package ru.yaal.seflchat.spring.mongo;
 
 import com.mongodb.MongoClient;
 import de.flapdoodle.embed.mongo.MongodExecutable;
@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import ru.yaal.seflchat.spring.SpringProfiles;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;

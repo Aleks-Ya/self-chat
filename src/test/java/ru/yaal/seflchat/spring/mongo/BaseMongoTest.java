@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.spring;
+package ru.yaal.seflchat.spring.mongo;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yaal.seflchat.repository.CorrespondenceRepository;
 import ru.yaal.seflchat.repository.DialogRepository;
 import ru.yaal.seflchat.repository.UserRepository;
-import ru.yaal.seflchat.service.CorrespondenceService;
-import ru.yaal.seflchat.service.CurrentDialogService;
+import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
+import ru.yaal.seflchat.service.dialog.CurrentDialogService;
+import ru.yaal.seflchat.spring.SpringProfiles;
 
 /**
  * @author Yablokov Aleksey

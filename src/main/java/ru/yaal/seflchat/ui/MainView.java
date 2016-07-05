@@ -10,8 +10,8 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.yaal.seflchat.service.CorrespondenceService;
-import ru.yaal.seflchat.service.CurrentDialogService;
+import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
+import ru.yaal.seflchat.service.dialog.CurrentDialogService;
 
 /**
  * @author Yablokov Aleksey

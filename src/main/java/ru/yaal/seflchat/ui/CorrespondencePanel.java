@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.service.CorrespondenceService;
+import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 
 import java.util.List;
 

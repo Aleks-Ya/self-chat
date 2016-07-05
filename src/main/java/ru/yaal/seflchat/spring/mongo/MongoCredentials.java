@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.spring;
+package ru.yaal.seflchat.spring.mongo;
 
 /**
  * @author Yablokov Aleksey
