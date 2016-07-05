@@ -1,6 +1,5 @@
 package ru.yaal.seflchat.service.dialog;
 
-import com.vaadin.data.Property;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
 
@@ -17,7 +16,7 @@ public interface CurrentDialogService {
 
     void addMessageToCurrentDialog(Message message);
 
-    void addListener(Property<Dialog> listener);
+    void addListener(CurrentDialogListener listener);
 
     void setCurrentDialog(Dialog dialog);
 
@@ -28,4 +27,8 @@ public interface CurrentDialogService {
     void fireCurrentDialogChanged();
 
     void renameCurrentDialog(String newName);
+
+    interface CurrentDialogListener {
+        void dialogChanged(Dialog dialog);
+    }
 }

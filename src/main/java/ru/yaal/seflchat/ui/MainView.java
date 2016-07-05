@@ -37,6 +37,7 @@ class MainView extends VerticalLayout implements View {
         service.addListener(messagesPanel);
 
         correspondenceService.addListener(correspondencePanel);
+        service.addListener(correspondencePanel);
 
         GridLayout grid = new GridLayout(3, 8);
         grid.addComponent(correspondencePanel, 0, 0, 0, 7);

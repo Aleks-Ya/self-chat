@@ -1,6 +1,5 @@
 package ru.yaal.seflchat.ui;
 
-import com.vaadin.data.Property;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -8,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
+import ru.yaal.seflchat.service.dialog.CurrentDialogService;
 
 /**
  * @author Yablokov Aleksey
@@ -15,9 +15,8 @@ import ru.yaal.seflchat.data.Message;
 @Slf4j
 @Component
 @UIScope
-class MessagesPanel extends Panel implements Property<Dialog> {
+class MessagesPanel extends Panel implements CurrentDialogService.CurrentDialogListener {
     private final VerticalLayout vertical = new VerticalLayout();
-    private Dialog value;
 
     MessagesPanel() {
         log.info("Create " + getClass().getSimpleName());
@@ -32,24 +31,13 @@ class MessagesPanel extends Panel implements Property<Dialog> {
         vertical.addComponent(panel);
     }
 
-    private void update() {
+    private void update(Dialog dialog) {
         vertical.removeAllComponents();
-        value.getMessages().forEach(this::addMessage);
+        dialog.getMessages().forEach(this::addMessage);
     }
 
     @Override
-    public Dialog getValue() {
-        return value;
-    }
-
-    @Override
-    public void setValue(Dialog newValue) throws ReadOnlyException {
-        value = newValue;
-        update();
-    }
-
-    @Override
-    public Class<? extends Dialog> getType() {
-        return Dialog.class;
+    public void dialogChanged(Dialog dialog) {
+        update(dialog);
     }
 }

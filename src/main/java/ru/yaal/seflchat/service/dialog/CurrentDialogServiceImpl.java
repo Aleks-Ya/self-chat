@@ -1,6 +1,5 @@
 package ru.yaal.seflchat.service.dialog;
 
-import com.vaadin.data.Property;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
     private final CorrespondenceService correspondenceService;
     private final VaadinService vaadinService;
-    private final List<Property<Dialog>> listeners = new ArrayList<>();
+    private final List<CurrentDialogListener> listeners = new ArrayList<>();
 
     @Autowired
     private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceService correspondenceService,
@@ -46,7 +45,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     private void eventListeners(Dialog dialog) {
-        listeners.forEach(listener -> listener.setValue(dialog));
+        listeners.forEach(listener -> listener.dialogChanged(dialog));
     }
 
     public synchronized Dialog getCurrentDialog() {
@@ -110,7 +109,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     @Override
-    public void addListener(Property<Dialog> listener) {
+    public void addListener(CurrentDialogListener listener) {
         listeners.add(listener);
     }
 }
