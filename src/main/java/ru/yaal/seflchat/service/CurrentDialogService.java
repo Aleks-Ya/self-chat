@@ -26,4 +26,6 @@ public interface CurrentDialogService {
     void clearCurrentDialog();
 
     void fireCurrentDialogChanged();
+
+    void renameCurrentDialog(String newName);
 }

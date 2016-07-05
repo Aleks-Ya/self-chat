@@ -1,8 +1,6 @@
 package ru.yaal.seflchat.data;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,10 +10,8 @@ import java.util.List;
 /**
  * @author Yablokov Aleksey
  */
-@Getter
+@Data
 @Document
-@EqualsAndHashCode
-@ToString
 public class Dialog {
 
     /**

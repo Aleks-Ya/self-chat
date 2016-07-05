@@ -14,7 +14,9 @@ public interface CorrespondenceService {
 
     void addDialog(Dialog dialog);
 
+    void addListener(CorrespondenceListener listener);
+
     interface CorrespondenceListener {
-        void correspondencehanged(Correspondence correspondence);
+        void correspondenceChanged(Correspondence correspondence);
     }
 }

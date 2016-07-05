@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
+import ru.yaal.seflchat.service.CorrespondenceService;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
 @Slf4j
 @Component
 @UIScope
-class CorrespondencePanel extends Panel implements Property<Correspondence> {
+class CorrespondencePanel extends Panel implements Property<Correspondence>, CorrespondenceService.CorrespondenceListener {
     private Correspondence value;
     private final Table table = new Table();
 
@@ -56,5 +57,10 @@ class CorrespondencePanel extends Panel implements Property<Correspondence> {
     @Override
     public Class<? extends Correspondence> getType() {
         return Correspondence.class;
+    }
+
+    @Override
+    public void correspondenceChanged(Correspondence correspondence) {
+        update();
     }
 }

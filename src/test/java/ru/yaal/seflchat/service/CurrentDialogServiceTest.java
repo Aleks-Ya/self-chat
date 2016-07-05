@@ -67,4 +67,17 @@ public class CurrentDialogServiceTest extends BaseMongoTest {
 
     }
 
+    @Test
+    public void renameCurrentDialog() {
+        assertNotNull(cds.getCurrentDialog());
+
+        String newName = "new dialog name";
+        cds.renameCurrentDialog(newName);
+
+        Dialog currentFromSession = cds.getCurrentDialog();
+        assertThat(currentFromSession.getName(), equalTo(newName));
+
+        Dialog actFromDb = dRepo.findOne(currentFromSession.getId());
+        assertThat(actFromDb.getName(), equalTo(newName));
+    }
 }

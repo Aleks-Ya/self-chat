@@ -6,6 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yaal.seflchat.repository.CorrespondenceRepository;
+import ru.yaal.seflchat.repository.DialogRepository;
 import ru.yaal.seflchat.repository.UserRepository;
 import ru.yaal.seflchat.service.CorrespondenceService;
 import ru.yaal.seflchat.service.CurrentDialogService;
@@ -16,11 +17,14 @@ import ru.yaal.seflchat.service.CurrentDialogService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestConfiguration.class)
 @ActiveProfiles(SpringProfiles.TEST)
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public abstract class BaseMongoTest {
     @Autowired
     protected UserRepository uRepo;
     @Autowired
     protected CorrespondenceRepository cRepo;
+    @Autowired
+    protected DialogRepository dRepo;
     @Autowired
     protected CorrespondenceService cs;
     @Autowired

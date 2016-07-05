@@ -1,6 +1,7 @@
 package ru.yaal.seflchat.service;
 
 import com.vaadin.data.Property;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.Dialog;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * @author Yablokov Aleksey
  */
+@Slf4j
 @Service
 class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
@@ -76,7 +78,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     @Override
-    public void clearCurrentDialog() {
+    public synchronized void clearCurrentDialog() {
         Dialog current = getCurrentDialog();
         current.getMessages().clear();
         repo.save(current);
@@ -88,9 +90,19 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
         eventListeners(getCurrentDialog());
     }
 
+    @Override
     public synchronized void addMessageToCurrentDialog(Message message) {
         Dialog current = getCurrentDialog();
         current.getMessages().add(message);
+        repo.save(current);
+        fireCurrentDialogChanged();
+    }
+
+    @Override
+    public synchronized void renameCurrentDialog(String newName) {
+        Dialog current = getCurrentDialog();
+        log.info("Rename dialog: \"" + current.getName() + "\" to \"" + newName + "\".");
+        current.setName(newName);
         repo.save(current);
         fireCurrentDialogChanged();
     }
