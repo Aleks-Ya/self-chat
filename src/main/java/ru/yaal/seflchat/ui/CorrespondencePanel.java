@@ -1,6 +1,7 @@
 package ru.yaal.seflchat.ui;
 
 import com.vaadin.data.Property;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -14,8 +15,9 @@ import java.util.List;
 /**
  * @author Yablokov Aleksey
  */
-@Component
 @Slf4j
+@Component
+@UIScope
 class CorrespondencePanel extends Panel implements Property<Correspondence> {
     private Correspondence value;
     private final Table table = new Table();

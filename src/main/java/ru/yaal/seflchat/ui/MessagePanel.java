@@ -2,6 +2,7 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.data.Property;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -13,8 +14,9 @@ import ru.yaal.seflchat.data.Message;
 /**
  * @author Yablokov Aleksey
  */
-@Component
 @Slf4j
+@Component
+@UIScope
 class MessagePanel extends Panel implements Property<Message> {
     private final VerticalLayout vertical = new VerticalLayout();
     private final Label label = new Label();

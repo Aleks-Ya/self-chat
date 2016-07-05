@@ -1,6 +1,7 @@
 package ru.yaal.seflchat.ui;
 
 import com.vaadin.data.Property;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +12,9 @@ import ru.yaal.seflchat.data.Message;
 /**
  * @author Yablokov Aleksey
  */
-@Component
 @Slf4j
+@Component
+@UIScope
 class MessagesPanel extends Panel implements Property<Dialog> {
     private final VerticalLayout vertical = new VerticalLayout();
     private Dialog value;

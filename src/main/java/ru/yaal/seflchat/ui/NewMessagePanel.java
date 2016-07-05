@@ -2,6 +2,7 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
@@ -14,8 +15,9 @@ import ru.yaal.seflchat.service.CurrentDialogService;
 /**
  * @author Yablokov Aleksey
  */
-@Component
 @Slf4j
+@Component
+@UIScope
 class NewMessagePanel extends VerticalLayout {
 
     @Autowired
