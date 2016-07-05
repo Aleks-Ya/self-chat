@@ -1,52 +1,62 @@
 package ru.yaal.seflchat.service;
 
-import com.vaadin.server.ServiceException;
-import com.vaadin.server.VaadinSession;
-import lombok.SneakyThrows;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import ru.yaal.seflchat.data.Correspondence;
+import ru.yaal.seflchat.data.Dialog;
+import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.spring.SpringProfiles;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.Cookie;
 
 /**
  * @author Yablokov Aleksey
  */
 @Component
 @Profile(SpringProfiles.TEST)
-class TestVaadinService implements VaadinService {
-    private final TestVaadinSession session;
+class TestVaadinService extends AbstractVaadinService {
+    private Cookie cookie;
+    private User user;
+    private Correspondence correspondence;
+    private Dialog dialog;
 
-    public TestVaadinService() throws ServiceException {
-        session = new TestVaadinSession();
+    @Override
+    public Cookie getUserCookie() {
+        return cookie;
     }
 
     @Override
-    @SneakyThrows
-    public VaadinSession getCurrentVaadinSession() {
-        return session;
+    public void setUserCookie(String value) {
+        cookie = createUserCookie(value);
     }
 
-    private static class TestVaadinSession extends VaadinSession {
-        private Map<String, Object> attrs = new HashMap<>();
+    @Override
+    public void setUserToSession(User user) {
+        this.user = user;
+    }
 
-        TestVaadinSession() throws ServiceException {
-            this(null);
-        }
+    @Override
+    public User getUserFromSession() {
+        return user;
+    }
 
-        private TestVaadinSession(com.vaadin.server.VaadinService service) {
-            super(service);
-        }
+    @Override
+    public Correspondence getCorrespondenceFromSession() {
+        return correspondence;
+    }
 
-        @Override
-        public Object getAttribute(String name) {
-            return attrs.get(name);
-        }
+    @Override
+    public void setCorrespondenceToSession(Correspondence correspondence) {
+        this.correspondence = correspondence;
+    }
 
-        @Override
-        public void setAttribute(String name, Object value) {
-            attrs.put(name, value);
-        }
+    @Override
+    public Dialog getDialogFromSession() {
+        return dialog;
+    }
+
+    @Override
+    public void setDialogToSession(Dialog dialog) {
+        this.dialog = dialog;
     }
 }

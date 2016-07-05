@@ -17,7 +17,6 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     private final CorrespondenceRepository repo;
     private final UserService userService;
     private final VaadinService vaadinService;
-    private static final String attr = "currentCorrespondence";
     private final List<CorrespondenceListener> listeners = new ArrayList<>();
 
     @Autowired
@@ -32,7 +31,7 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public synchronized Correspondence getCurrentCorrespondence() {
-        Correspondence correspondence = (Correspondence) vaadinService.getCurrentVaadinSession().getAttribute(attr);
+        Correspondence correspondence = vaadinService.getCorrespondenceFromSession();
         if (correspondence == null) {
             correspondence = repo.findByUser(userService.getCurrentUser())
                     .orElseGet(() -> createCorrespondence(new Correspondence(userService.getCurrentUser())));
@@ -53,9 +52,8 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
         repo.save(correspondence);
     }
 
-
     public synchronized void setCurrentCorrespondence(Correspondence correspondence) {
-        vaadinService.getCurrentVaadinSession().setAttribute(attr, correspondence);
+        vaadinService.setCorrespondenceToSession(correspondence);
         eventListeners(correspondence);
     }
 }

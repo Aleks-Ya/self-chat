@@ -42,7 +42,7 @@ public class CurrentDialogServiceTest extends BaseMongoTest {
     @Test
     public void setCurrentDialog() {
         Dialog old = cds.getCurrentDialog();
-        Dialog exp = new Dialog();
+        Dialog exp = new Dialog("test dialog");
         cds.setCurrentDialog(exp);
         assertThat(cds.getCurrentDialog(), equalTo(exp));
         assertThat(cds.getCurrentDialog(), not(equalTo(old)));

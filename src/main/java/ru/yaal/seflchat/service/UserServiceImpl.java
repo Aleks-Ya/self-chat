@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.repository.UserRepository;
 
+import javax.servlet.http.Cookie;
+import java.time.Instant;
 import java.util.Optional;
-
-import static ru.yaal.seflchat.vaadin.SessionListener.currentUserAttr;
 
 /**
  * @author Yablokov Aleksey
@@ -33,16 +33,38 @@ class UserServiceImpl implements UserService {
     }
 
     public User getCurrentUser() {
-        return (User) vaadinService.getCurrentVaadinSession().getAttribute(currentUserAttr);
+        return vaadinService.getUserFromSession();
     }
 
     @Override
     public void setCurrentUser(User user) {
-        vaadinService.getCurrentVaadinSession().setAttribute(currentUserAttr, user);
+        vaadinService.setUserToSession(user);
     }
 
     @Override
     public Optional<User> getUserByCookie(String cookieValue) {
         return repo.findByCookieValue(cookieValue);
     }
+
+    @Override
+    public void initCurrentUser() {
+        User user = takeUser(vaadinService.getUserCookie());
+        setCurrentUser(user);
+    }
+
+    private User takeUser(Cookie cookie) {
+        if (cookie != null) {
+            Optional<User> user = getUserByCookie(cookie.getValue());
+            return user.orElseGet(() -> createNewUser(cookie.getValue()));
+        } else {
+            String value = Instant.now().toString();
+            vaadinService.setUserCookie(value);
+            return createNewUser(value);
+        }
+    }
+
+    private User createNewUser(String value) {
+        return createUser(new User(null, "user_" + Instant.now(), "abcd", value));
+    }
+
 }

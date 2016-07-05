@@ -7,6 +7,7 @@ import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.repository.DialogRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,6 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     private final DialogRepository repo;
     private final CorrespondenceService correspondenceService;
     private final VaadinService vaadinService;
-    private static final String currentDialogAttr = "currentDialogAttr";
     private final List<Property<Dialog>> listeners = new ArrayList<>();
 
     @Autowired
@@ -34,7 +34,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     private Dialog createDialogForCurrentUser() {
-        Dialog dialog = new Dialog();
+        Dialog dialog = new Dialog("dialog_" + LocalDateTime.now());
         repo.insert(dialog);
         setCurrentDialog(dialog);
         correspondenceService.addDialog(dialog);
@@ -46,7 +46,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     public synchronized Dialog getCurrentDialog() {
-        Dialog dialog = (Dialog) vaadinService.getCurrentVaadinSession().getAttribute(currentDialogAttr);
+        Dialog dialog = vaadinService.getDialogFromSession();
         if (dialog == null) {
             List<Dialog> dialogs = getCurrentUserDialogs();
             if (dialogs.isEmpty()) {
@@ -60,7 +60,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     }
 
     public synchronized void setCurrentDialog(Dialog dialog) {
-        vaadinService.getCurrentVaadinSession().setAttribute(currentDialogAttr, dialog);
+        vaadinService.setDialogToSession(dialog);
         fireCurrentDialogChanged();
     }
 

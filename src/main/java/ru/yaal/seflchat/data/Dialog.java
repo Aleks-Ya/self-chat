@@ -17,29 +17,38 @@ import java.util.List;
 @EqualsAndHashCode
 public class Dialog {
 
-    public Dialog() {
+    /**
+     * For mongo
+     */
+    @SuppressWarnings("unused")
+    private Dialog() {
     }
 
-    private Dialog(String id, List<Message> messages) {
+    public Dialog(String name) {
+        this.name = name;
+    }
+
+    private Dialog(String id, String name, List<Message> messages) {
         this.id = id;
+        this.name = name;
         this.messages = messages;
     }
 
     @Id
     private String id;
 
-    private String name;
+    private String name = "no_name";
 
     private List<Message> messages = new ArrayList<>();
 
     public Dialog withAddMessage(Message message) {
         ArrayList<Message> messages = new ArrayList<>(this.messages);
         messages.add(message);
-        return new Dialog(id, Collections.unmodifiableList(messages));
+        return new Dialog(id, name, Collections.unmodifiableList(messages));
     }
 
     public Dialog withClearMessages() {
-        return new Dialog(id, Collections.emptyList());
+        return new Dialog(id, name, Collections.emptyList());
     }
 
     @Override

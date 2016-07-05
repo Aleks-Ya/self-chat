@@ -16,4 +16,6 @@ public interface UserService {
     void setCurrentUser(User user);
 
     Optional<User> getUserByCookie(String cookie);
+
+    void initCurrentUser();
 }
