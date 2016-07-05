@@ -15,7 +15,7 @@ public interface CurrentDialogService {
 
     Dialog getCurrentDialog();
 
-    Dialog addMessageToCurrentDialog(Message message);
+    void addMessageToCurrentDialog(Message message);
 
     void addListener(Property<Dialog> listener);
 

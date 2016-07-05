@@ -77,7 +77,10 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
 
     @Override
     public void clearCurrentDialog() {
-        setCurrentDialog(getCurrentDialog().withClearMessages());
+        Dialog current = getCurrentDialog();
+        current.getMessages().clear();
+        repo.save(current);
+        fireCurrentDialogChanged();
     }
 
     @Override
@@ -85,10 +88,11 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
         eventListeners(getCurrentDialog());
     }
 
-    public synchronized Dialog addMessageToCurrentDialog(Message message) {
-        Dialog dialog = repo.save(getCurrentDialog().withAddMessage(message));
-        setCurrentDialog(dialog);
-        return dialog;
+    public synchronized void addMessageToCurrentDialog(Message message) {
+        Dialog current = getCurrentDialog();
+        current.getMessages().add(message);
+        repo.save(current);
+        fireCurrentDialogChanged();
     }
 
     @Override

@@ -3,7 +3,6 @@ package ru.yaal.seflchat.data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 /**
  * @author Yablokov Aleksey
@@ -12,8 +11,6 @@ import org.springframework.data.annotation.Id;
 @Getter
 @EqualsAndHashCode
 public class Message {
-    @Id
-    private String id;
     private String content;
     private Alignment alignment;
 
