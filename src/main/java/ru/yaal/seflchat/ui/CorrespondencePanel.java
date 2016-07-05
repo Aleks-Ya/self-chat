@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 
+import java.util.List;
+
 /**
  * @author Yablokov Aleksey
  */
@@ -20,16 +22,22 @@ class CorrespondencePanel extends Panel implements Property<Correspondence> {
 
     CorrespondencePanel() {
         log.info("Create " + getClass().getSimpleName());
+        table.addContainerProperty("Dialogs", String.class, null);
         VerticalLayout vertical = new VerticalLayout();
         vertical.addComponent(table);
-        setScrollTop(9999);
         setContent(vertical);
         setSizeFull();
+        table.setSizeFull();
     }
 
     private void update() {
         table.removeAllItems();
-        value.getUserDialogs().stream().map(Dialog::getName).forEach(table::addItem);
+        List<Dialog> dialogs = value.getUserDialogs();
+        for (int i = 0; i < dialogs.size(); i++) {
+            Object[] item = new Object[]{dialogs.get(i).getName()};
+            table.addItem(item, i);
+        }
+        table.setPageLength(table.size());
     }
 
     @Override
