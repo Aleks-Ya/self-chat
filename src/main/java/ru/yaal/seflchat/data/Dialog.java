@@ -2,6 +2,7 @@ package ru.yaal.seflchat.data;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Getter
 @Document
 @EqualsAndHashCode
+@ToString
 public class Dialog {
 
     /**
@@ -49,13 +51,5 @@ public class Dialog {
 
     public Dialog withClearMessages() {
         return new Dialog(id, name, Collections.emptyList());
-    }
-
-    @Override
-    public String toString() {
-        return "Dialog{" +
-                "id='" + id + '\'' +
-                ", messages=" + messages.size() +
-                '}';
     }
 }
