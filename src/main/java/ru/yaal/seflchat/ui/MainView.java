@@ -21,8 +21,8 @@ import ru.yaal.seflchat.service.dialog.CurrentDialogService;
 class MainView extends VerticalLayout implements View {
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service, CorrespondencePanel correspondencePanel,
-             CorrespondenceService correspondenceService) {
+    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service, CorrespondenceListPanel correspondenceListPanel,
+             CorrespondencePanel correspondencePanel, CorrespondenceService correspondenceService) {
         log.info("Create " + getClass().getSimpleName());
 
         TextField tfDialogName = new TextField("Dialog name");
@@ -36,8 +36,8 @@ class MainView extends VerticalLayout implements View {
         MessagesPanel messagesPanel = new MessagesPanel();
         service.addListener(messagesPanel);
 
-        correspondenceService.addListener(correspondencePanel);
-        service.addListener(correspondencePanel);
+        correspondenceService.addListener(correspondenceListPanel);
+        service.addListener(correspondenceListPanel);
 
         GridLayout grid = new GridLayout(3, 8);
         grid.addComponent(correspondencePanel, 0, 0, 0, 7);
@@ -51,7 +51,7 @@ class MainView extends VerticalLayout implements View {
         grid.setComponentAlignment(bClear, Alignment.BOTTOM_RIGHT);
 
         setSizeFull();
-        correspondencePanel.setValue(correspondenceService.getCurrentCorrespondence());
+        correspondenceListPanel.setValue(correspondenceService.getCurrentCorrespondence());
         service.fireCurrentDialogChanged();
     }
 
