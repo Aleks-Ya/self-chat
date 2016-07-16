@@ -18,7 +18,7 @@ import ru.yaal.seflchat.service.event.EventService;
 @Slf4j
 @Component
 @UIScope
-class MessagesPanel extends Panel implements EventService.DialogMessageAddedListener {
+class MessagesPanel extends Panel implements EventService.DialogMessageAddedListener, EventService.DialogSelectedListener {
     private final VerticalLayout vertical = new VerticalLayout();
 
     @Autowired
@@ -43,6 +43,11 @@ class MessagesPanel extends Panel implements EventService.DialogMessageAddedList
 
     @Override
     public void dialogMessageAdded(DialogEvent event) {
+        update(event.getChangedDialog());
+    }
+
+    @Override
+    public void dialogSelected(DialogEvent event) {
         update(event.getChangedDialog());
     }
 }
