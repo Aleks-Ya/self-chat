@@ -2,6 +2,7 @@ package ru.yaal.seflchat.service.correspondence;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.repository.CorrespondenceRepository;
@@ -9,8 +10,8 @@ import ru.yaal.seflchat.repository.DialogRepository;
 import ru.yaal.seflchat.service.user.UserService;
 import ru.yaal.seflchat.service.vaadin.VaadinService;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Yablokov Aleksey
@@ -21,7 +22,7 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     private final UserService userService;
     private final DialogRepository dRepo;
     private final VaadinService vaadinService;
-    private final List<CorrespondenceListener> listeners = new ArrayList<>();
+    private final List<CorrespondenceListener> listeners = new CopyOnWriteArrayList<>();
 
     @Autowired
     private CorrespondenceServiceImpl(CorrespondenceRepository cRepo, UserService userService,
@@ -52,6 +53,7 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     @Override
+    @Transactional
     public void addDialog(Dialog dialog) {
         dRepo.save(dialog);
         Correspondence correspondence = getCurrentCorrespondence();
