@@ -19,4 +19,6 @@ public interface CorrespondenceService {
     interface CorrespondenceListener {
         void correspondenceChanged(Correspondence correspondence);
     }
+
+    void removeDialog(Dialog dialog);
 }

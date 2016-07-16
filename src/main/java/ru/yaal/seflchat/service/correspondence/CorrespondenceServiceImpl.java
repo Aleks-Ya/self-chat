@@ -71,4 +71,10 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     public void addListener(CorrespondenceListener listener) {
         listeners.add(listener);
     }
+
+    @Override
+    public void removeDialog(Dialog dialog) {
+        dRepo.delete(dialog);
+        eventListeners(getCurrentCorrespondence());
+    }
 }
