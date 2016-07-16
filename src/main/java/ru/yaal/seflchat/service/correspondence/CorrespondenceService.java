@@ -2,6 +2,9 @@ package ru.yaal.seflchat.service.correspondence;
 
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
+import ru.yaal.seflchat.data.Message;
+
+import java.util.List;
 
 /**
  * @author Yablokov Aleksey
@@ -14,11 +17,19 @@ public interface CorrespondenceService {
 
     void addDialog(Dialog dialog);
 
-    void addListener(CorrespondenceListener listener);
-
-    interface CorrespondenceListener {
-        void correspondenceChanged(Correspondence correspondence);
-    }
-
     void removeDialog(Dialog dialog);
+
+    List<Dialog> getCurrentUserDialogs();
+
+    Dialog getCurrentDialog();
+
+    void addMessageToCurrentDialog(Message message);
+
+    void setCurrentDialog(String dialogId);
+
+    Message.Alignment getNextMessageAlignment();
+
+    void clearCurrentDialog();
+
+    void renameCurrentDialog(String newName);
 }

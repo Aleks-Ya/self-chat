@@ -24,15 +24,15 @@ public class CurrentDialogServiceTest extends BaseMongoTest {
 
     @Test
     public void getCurrentDialog() {
-        assertNotNull(cds.getCurrentDialog());
+        assertNotNull(cs.getCurrentDialog());
     }
 
     @Test
     public void addMessageToCurrentDialog() {
-        assertThat(cds.getCurrentDialog().getMessages(), emptyIterable());
+        assertThat(cs.getCurrentDialog().getMessages(), emptyIterable());
         Message message = new Message("aa", Message.Alignment.LEFT);
-        cds.addMessageToCurrentDialog(message);
-        assertThat(cds.getCurrentDialog().getMessages(), contains(message));
+        cs.addMessageToCurrentDialog(message);
+        assertThat(cs.getCurrentDialog().getMessages(), contains(message));
     }
 
     @Test
@@ -43,11 +43,11 @@ public class CurrentDialogServiceTest extends BaseMongoTest {
     @Test
     @Ignore("Save dialog before find it")
     public void setCurrentDialog() {
-        Dialog old = cds.getCurrentDialog();
+        Dialog old = cs.getCurrentDialog();
         Dialog exp = new Dialog("test dialog");
-        cds.setCurrentDialog(exp.getId());
-        assertThat(cds.getCurrentDialog(), equalTo(exp));
-        assertThat(cds.getCurrentDialog(), not(equalTo(old)));
+        cs.setCurrentDialog(exp.getId());
+        assertThat(cs.getCurrentDialog(), equalTo(exp));
+        assertThat(cs.getCurrentDialog(), not(equalTo(old)));
     }
 
     @Test
@@ -57,11 +57,11 @@ public class CurrentDialogServiceTest extends BaseMongoTest {
 
     @Test
     public void clearCurrentDialog() {
-        cds.addMessageToCurrentDialog(new Message(null, null));
-        cds.addMessageToCurrentDialog(new Message(null, null));
-        assertThat(cds.getCurrentDialog().getMessages(), hasSize(2));
-        cds.clearCurrentDialog();
-        assertThat(cds.getCurrentDialog().getMessages(), emptyIterable());
+        cs.addMessageToCurrentDialog(new Message(null, null));
+        cs.addMessageToCurrentDialog(new Message(null, null));
+        assertThat(cs.getCurrentDialog().getMessages(), hasSize(2));
+        cs.clearCurrentDialog();
+        assertThat(cs.getCurrentDialog().getMessages(), emptyIterable());
     }
 
     @Test
@@ -71,12 +71,12 @@ public class CurrentDialogServiceTest extends BaseMongoTest {
 
     @Test
     public void renameCurrentDialog() {
-        assertNotNull(cds.getCurrentDialog());
+        assertNotNull(cs.getCurrentDialog());
 
         String newName = "new dialog name";
-        cds.renameCurrentDialog(newName);
+        cs.renameCurrentDialog(newName);
 
-        Dialog currentFromSession = cds.getCurrentDialog();
+        Dialog currentFromSession = cs.getCurrentDialog();
         assertThat(currentFromSession.getName(), equalTo(newName));
 
         Dialog actFromDb = dRepo.findOne(currentFromSession.getId());

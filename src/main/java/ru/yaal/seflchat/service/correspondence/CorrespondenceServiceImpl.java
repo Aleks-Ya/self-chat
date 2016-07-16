@@ -1,40 +1,41 @@
 package ru.yaal.seflchat.service.correspondence;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
+import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.repository.CorrespondenceRepository;
 import ru.yaal.seflchat.repository.DialogRepository;
+import ru.yaal.seflchat.service.event.EventService;
 import ru.yaal.seflchat.service.user.UserService;
 import ru.yaal.seflchat.service.vaadin.VaadinService;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Yablokov Aleksey
  */
+@Slf4j
 @Service
 class CorrespondenceServiceImpl implements CorrespondenceService {
     private final CorrespondenceRepository cRepo;
     private final UserService userService;
     private final DialogRepository dRepo;
     private final VaadinService vaadinService;
-    private final List<CorrespondenceListener> listeners = new CopyOnWriteArrayList<>();
+    private final EventService eventService;
 
     @Autowired
     private CorrespondenceServiceImpl(CorrespondenceRepository cRepo, UserService userService,
-                                      DialogRepository dRepo, VaadinService vaadinService) {
+                                      DialogRepository dRepo, VaadinService vaadinService, EventService eventService) {
         this.cRepo = cRepo;
         this.userService = userService;
         this.dRepo = dRepo;
         this.vaadinService = vaadinService;
-    }
-
-    private void eventListeners(Correspondence correspondence) {
-        listeners.forEach(listener -> listener.correspondenceChanged(correspondence));
+        this.eventService = eventService;
     }
 
     public synchronized Correspondence getCurrentCorrespondence() {
@@ -45,6 +46,11 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
             setCurrentCorrespondence(correspondence);
         }
         return correspondence;
+    }
+
+    private synchronized void setCurrentCorrespondence(Correspondence correspondence) {
+        vaadinService.setCorrespondenceToSession(correspondence);
+        eventService.fireCorrespondenceSelected();
     }
 
     @Override
@@ -59,22 +65,91 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
         Correspondence correspondence = getCurrentCorrespondence();
         correspondence.getUserDialogs().add(dialog);
         cRepo.save(correspondence);
-        eventListeners(correspondence);
-    }
-
-    public synchronized void setCurrentCorrespondence(Correspondence correspondence) {
-        vaadinService.setCorrespondenceToSession(correspondence);
-        eventListeners(correspondence);
-    }
-
-    @Override
-    public void addListener(CorrespondenceListener listener) {
-        listeners.add(listener);
+        eventService.fireDialogAdded(dialog);
     }
 
     @Override
     public void removeDialog(Dialog dialog) {
         dRepo.delete(dialog);
-        eventListeners(getCurrentCorrespondence());
+        eventService.fireDialogRemoved(dialog);
+    }
+
+
+//    @Autowired
+//    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceService correspondenceService,
+//                                     VaadinService vaadinService, EventService eventService) {
+//        this.repo = repo;
+//        this.correspondenceService = correspondenceService;
+//        this.vaadinService = vaadinService;
+//        this.eventService = eventService;
+//    }
+
+    public List<Dialog> getCurrentUserDialogs() {
+        return getCurrentCorrespondence().getUserDialogs();
+    }
+
+    @Transactional
+    private Dialog createDialogForCurrentUser() {
+        Dialog dialog = new Dialog("dialog_" + LocalDateTime.now());
+        dRepo.insert(dialog);
+        setCurrentDialog(dialog.getId());
+        addDialog(dialog);
+        return dialog;
+    }
+
+    public synchronized Dialog getCurrentDialog() {
+        Dialog dialog = vaadinService.getDialogFromSession();
+        if (dialog == null) {
+            List<Dialog> dialogs = getCurrentUserDialogs();
+            if (dialogs.isEmpty()) {
+                dialog = createDialogForCurrentUser();
+            } else {
+                dialog = dialogs.get(0);
+            }
+            setCurrentDialog(dialog.getId());
+        }
+        return dialog;
+    }
+
+    public synchronized void setCurrentDialog(String dialogId) {
+        Dialog dialog = dRepo.findOne(dialogId);
+        vaadinService.setDialogToSession(dialog);
+        eventService.fireDialogSelected(dialog);
+    }
+
+    @Override
+    public Message.Alignment getNextMessageAlignment() {
+        List<Message> messages = getCurrentDialog().getMessages();
+        if (messages.isEmpty()) {
+            return Message.Alignment.LEFT;
+        } else {
+            Message.Alignment lastAlignment = messages.get(messages.size() - 1).getAlignment();
+            return lastAlignment == Message.Alignment.RIGHT ? Message.Alignment.LEFT : Message.Alignment.RIGHT;
+        }
+    }
+
+    @Override
+    public synchronized void clearCurrentDialog() {
+        Dialog current = getCurrentDialog();
+        current.getMessages().clear();
+        dRepo.save(current);
+        eventService.fireDialogCleared(current);
+    }
+
+    @Override
+    public synchronized void addMessageToCurrentDialog(Message message) {
+        Dialog current = getCurrentDialog();
+        current.getMessages().add(message);
+        dRepo.save(current);
+        eventService.fireDialogMessageAdded(current);
+    }
+
+    @Override
+    public synchronized void renameCurrentDialog(String newName) {
+        Dialog current = getCurrentDialog();
+        log.info("Rename dialog: \"" + current.getName() + "\" to \"" + newName + "\".");
+        current.setName(newName);
+        dRepo.save(current);
+        eventService.fireDialogRenamed(current);
     }
 }

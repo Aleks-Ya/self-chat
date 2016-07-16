@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.service.dialog.CurrentDialogService;
+import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 
 /**
  * @author Yablokov Aleksey
@@ -21,7 +21,7 @@ import ru.yaal.seflchat.service.dialog.CurrentDialogService;
 class NewMessagePanel extends VerticalLayout {
 
     @Autowired
-    NewMessagePanel(CurrentDialogService service) {
+    NewMessagePanel(CorrespondenceService service) {
         log.info("Create " + getClass().getSimpleName());
         TextArea area = new TextArea("Enter message:");
         area.setRows(5);

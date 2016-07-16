@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
-import ru.yaal.seflchat.service.dialog.CurrentDialogService;
+import ru.yaal.seflchat.service.event.DialogEvent;
+import ru.yaal.seflchat.service.event.EventService;
 
 import java.util.List;
 
@@ -20,13 +21,14 @@ import java.util.List;
 @Slf4j
 @Component
 class CorrespondenceListPanel extends Panel
-        implements Property<Correspondence>, CorrespondenceService.CorrespondenceListener, CurrentDialogService.CurrentDialogListener {
+        implements Property<Correspondence>, EventService.DialogAddedListener, EventService.DialogRemovedListener,
+        EventService.DialogRenamedListener {
 
-    private Correspondence value;
     private final Table table = new Table();
+    private Correspondence value;
 
     @Autowired
-    CorrespondenceListPanel(CurrentDialogService dialogService) {
+    CorrespondenceListPanel(CorrespondenceService corService) {
         log.info("Create " + getClass().getSimpleName());
         table.addContainerProperty("Dialogs", String.class, null);
         VerticalLayout vertical = new VerticalLayout();
@@ -34,7 +36,7 @@ class CorrespondenceListPanel extends Panel
         setContent(vertical);
         setSizeFull();
         table.setSizeFull();
-        table.addItemClickListener(event -> dialogService.setCurrentDialog(event.getItemId().toString()));
+        table.addItemClickListener(event -> corService.setCurrentDialog(event.getItemId().toString()));
     }
 
     private void update() {
@@ -64,12 +66,17 @@ class CorrespondenceListPanel extends Panel
     }
 
     @Override
-    public void correspondenceChanged(Correspondence correspondence) {
-        update();
+    public void dialogAdded(DialogEvent event) {
+        setValue(event.getSelectedCorrespondence().get());
     }
 
     @Override
-    public void dialogChanged(Dialog dialog) {
-        update();
+    public void dialogRenamed(DialogEvent event) {
+        setValue(event.getSelectedCorrespondence().get());
+    }
+
+    @Override
+    public void dialogRemoved(DialogEvent event) {
+        setValue(event.getSelectedCorrespondence().get());
     }
 }

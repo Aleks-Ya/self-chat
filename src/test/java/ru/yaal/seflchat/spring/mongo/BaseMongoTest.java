@@ -9,7 +9,6 @@ import ru.yaal.seflchat.repository.CorrespondenceRepository;
 import ru.yaal.seflchat.repository.DialogRepository;
 import ru.yaal.seflchat.repository.UserRepository;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
-import ru.yaal.seflchat.service.dialog.CurrentDialogService;
 import ru.yaal.seflchat.spring.SpringProfiles;
 
 /**
@@ -28,6 +27,4 @@ public abstract class BaseMongoTest {
     protected DialogRepository dRepo;
     @Autowired
     protected CorrespondenceService cs;
-    @Autowired
-    protected CurrentDialogService cds;
 }

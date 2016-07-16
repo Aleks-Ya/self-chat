@@ -7,34 +7,30 @@ import com.vaadin.ui.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
-import ru.yaal.seflchat.service.dialog.CurrentDialogService;
+import ru.yaal.seflchat.service.event.DialogEvent;
+import ru.yaal.seflchat.service.event.EventService;
 
 /**
  * @author Yablokov Aleksey
  */
 @SpringView(name = "")
 @Slf4j
-class MainView extends VerticalLayout implements View {
+class MainView extends VerticalLayout implements View, EventService.DialogSelectedListener {
+    private final TextField tfDialogName = new TextField("Dialog name");
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, CurrentDialogService service, CorrespondenceListPanel correspondenceListPanel,
-             CorrespondencePanel correspondencePanel, CorrespondenceService correspondenceService) {
+    MainView(NewMessagePanel newMessagePanel, CorrespondenceListPanel correspondenceListPanel,
+             CorrespondencePanel correspondencePanel, CorrespondenceService corService) {
         log.info("Create " + getClass().getSimpleName());
 
-        TextField tfDialogName = new TextField("Dialog name");
-        tfDialogName.setValue(service.getCurrentDialog().getName());
+        tfDialogName.setValue(corService.getCurrentDialog().getName());
         tfDialogName.setWidth("100%");
-        tfDialogName.addValueChangeListener(event -> service.renameCurrentDialog(event.getProperty().getValue().toString()));
-        service.addListener(dialog -> tfDialogName.setValue(service.getCurrentDialog().getName()));
+        tfDialogName.addValueChangeListener(event -> corService.renameCurrentDialog(event.getProperty().getValue().toString()));
 
         Button bClear = new Button("Clear dialog");
-        bClear.addClickListener(event -> service.clearCurrentDialog());
+        bClear.addClickListener(event -> corService.clearCurrentDialog());
 
         MessagesPanel messagesPanel = new MessagesPanel();
-        service.addListener(messagesPanel);
-
-        correspondenceService.addListener(correspondenceListPanel);
-        service.addListener(correspondenceListPanel);
 
         GridLayout grid = new GridLayout(3, 8);
         grid.addComponent(correspondencePanel, 0, 0, 0, 7);
@@ -48,11 +44,16 @@ class MainView extends VerticalLayout implements View {
         grid.setComponentAlignment(bClear, Alignment.BOTTOM_RIGHT);
 
         setSizeFull();
-        correspondenceListPanel.setValue(correspondenceService.getCurrentCorrespondence());
-        service.fireCurrentDialogChanged();
+        correspondenceListPanel.setValue(corService.getCurrentCorrespondence());
+//        service.fireCurrentDialogChanged();
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+    }
+
+    @Override
+    public void dialogSelected(DialogEvent event) {
+        tfDialogName.setValue(event.getSelectedDialog().get().getName());
     }
 }

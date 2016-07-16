@@ -4,6 +4,8 @@ import lombok.Getter;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 
+import java.util.function.Supplier;
+
 /**
  * @author Aleksey Yablokov
  */
@@ -11,7 +13,7 @@ import ru.yaal.seflchat.data.Dialog;
 public class DialogEvent extends Event {
     private Dialog changedDialog;
 
-    public DialogEvent(Dialog changedDialog, Correspondence selectedCorrespondence, Dialog selectedDialog) {
+    public DialogEvent(Dialog changedDialog, Supplier<Correspondence> selectedCorrespondence, Supplier<Dialog> selectedDialog) {
         super(selectedCorrespondence, selectedDialog);
         this.changedDialog = changedDialog;
     }

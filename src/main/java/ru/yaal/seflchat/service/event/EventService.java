@@ -1,20 +1,24 @@
 package ru.yaal.seflchat.service.event;
 
+import ru.yaal.seflchat.data.Dialog;
+
 /**
  * @author Aleksey Yablokov
  */
 public interface EventService {
-    void fireDialogAdded(DialogEvent event);
+    void fireDialogAdded(Dialog dialog);
 
-    void fireDialogRenamed(DialogEvent event);
+    void fireDialogRenamed(Dialog newDialog);
 
-    void fireDialogRemoved(DialogEvent event);
+    void fireDialogRemoved(Dialog dialog);
 
-    void fireDialogSelected(DialogEvent event);
+    void fireDialogSelected(Dialog dialog);
 
-    void fireDialogMessageAdded(DialogEvent event);
+    void fireDialogMessageAdded(Dialog dialog);
 
-    void fireCorrespondenceSelected(Event event);
+    void fireDialogCleared(Dialog dialog);
+
+    void fireCorrespondenceSelected();
 
     interface DialogAddedListener {
         void dialogAdded(DialogEvent event);
@@ -26,6 +30,10 @@ public interface EventService {
 
     interface DialogRemovedListener {
         void dialogRemoved(DialogEvent event);
+    }
+
+    interface DialogClearedListener {
+        void dialogCleared(DialogEvent event);
     }
 
     interface DialogSelectedListener {

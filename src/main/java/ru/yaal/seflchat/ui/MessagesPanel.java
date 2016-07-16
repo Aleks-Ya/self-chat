@@ -7,7 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.service.dialog.CurrentDialogService;
+import ru.yaal.seflchat.service.event.DialogEvent;
+import ru.yaal.seflchat.service.event.EventService;
 
 /**
  * @author Yablokov Aleksey
@@ -15,7 +16,7 @@ import ru.yaal.seflchat.service.dialog.CurrentDialogService;
 @Slf4j
 @Component
 @UIScope
-class MessagesPanel extends Panel implements CurrentDialogService.CurrentDialogListener {
+class MessagesPanel extends Panel implements EventService.DialogMessageAddedListener {
     private final VerticalLayout vertical = new VerticalLayout();
 
     MessagesPanel() {
@@ -37,7 +38,7 @@ class MessagesPanel extends Panel implements CurrentDialogService.CurrentDialogL
     }
 
     @Override
-    public void dialogChanged(Dialog dialog) {
-        update(dialog);
+    public void dialogMessageAdded(DialogEvent event) {
+        update(event.getChangedDialog());
     }
 }
