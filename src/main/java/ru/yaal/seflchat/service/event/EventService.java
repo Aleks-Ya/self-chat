@@ -1,46 +1,42 @@
 package ru.yaal.seflchat.service.event;
 
-import ru.yaal.seflchat.data.Correspondence;
-import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.data.Message;
-
 /**
  * @author Aleksey Yablokov
  */
 public interface EventService {
-    void fireDialogAdded(Dialog newDialog);
+    void fireDialogAdded(DialogEvent event);
 
-    void fireDialogRenamed(Dialog newDialog, String oldName);
+    void fireDialogRenamed(DialogEvent event);
 
-    void fireDialogRemoved(Dialog dialog);
+    void fireDialogRemoved(DialogEvent event);
 
-    void fireDialogSelected(Dialog newDialog, Dialog oldDialog);
+    void fireDialogSelected(DialogEvent event);
 
-    void fireDialogMessageAdded(Dialog dialog, Message message);
+    void fireDialogMessageAdded(DialogEvent event);
 
-    void fireCorrespondenceSelected(Correspondence newCorrespondence);
+    void fireCorrespondenceSelected(Event event);
 
     interface DialogAddedListener {
-        void dialogAdded(Dialog newDialog);
+        void dialogAdded(DialogEvent event);
     }
 
     interface DialogRenamedListener {
-        void dialogRenamed(Dialog newDialog, String oldName);
+        void dialogRenamed(DialogEvent event);
     }
 
     interface DialogRemovedListener {
-        void dialogRemoved(Dialog dialog);
+        void dialogRemoved(DialogEvent event);
     }
 
     interface DialogSelectedListener {
-        void dialogSelected(Dialog newDialog, Dialog oldDialog);
+        void dialogSelected(DialogEvent event);
     }
 
     interface DialogMessageAddedListener {
-        void dialogMessageAdded(Dialog dialog, Message message);
+        void dialogMessageAdded(DialogEvent event);
     }
 
     interface CorrespondenceSelectedListener {
-        void correspondenceSelected(Correspondence newCorrespondence);
+        void correspondenceSelected(Event event);
     }
 }

@@ -2,9 +2,6 @@ package ru.yaal.seflchat.service.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.yaal.seflchat.data.Correspondence;
-import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.data.Message;
 
 import java.util.List;
 
@@ -32,32 +29,32 @@ class EventServiceImpl implements EventService {
     private List<CorrespondenceSelectedListener> correspondenceSelectedListeners;
 
     @Override
-    public void fireDialogAdded(Dialog newDialog) {
-        dialogAddedListeners.forEach(listener -> listener.dialogAdded(newDialog));
+    public void fireDialogAdded(DialogEvent event) {
+        dialogAddedListeners.forEach(listener -> listener.dialogAdded(event));
     }
 
     @Override
-    public void fireDialogRenamed(Dialog newDialog, String oldName) {
-        dialogRenamedListeners.forEach(listener -> listener.dialogRenamed(newDialog, oldName));
+    public void fireDialogRenamed(DialogEvent event) {
+        dialogRenamedListeners.forEach(listener -> listener.dialogRenamed(event));
     }
 
     @Override
-    public void fireDialogRemoved(Dialog dialog) {
-        dialogRemovedListeners.forEach(listener -> listener.dialogRemoved(dialog));
+    public void fireDialogRemoved(DialogEvent event) {
+        dialogRemovedListeners.forEach(listener -> listener.dialogRemoved(event));
     }
 
     @Override
-    public void fireDialogSelected(Dialog newDialog, Dialog oldDialog) {
-        dialogSelectedListeners.forEach(listener -> listener.dialogSelected(newDialog, oldDialog));
+    public void fireDialogSelected(DialogEvent event) {
+        dialogSelectedListeners.forEach(listener -> listener.dialogSelected(event));
     }
 
     @Override
-    public void fireDialogMessageAdded(Dialog dialog, Message message) {
-        dialogMessageAddedListeners.forEach(listener -> listener.dialogMessageAdded(dialog, message));
+    public void fireDialogMessageAdded(DialogEvent event) {
+        dialogMessageAddedListeners.forEach(listener -> listener.dialogMessageAdded(event));
     }
 
     @Override
-    public void fireCorrespondenceSelected(Correspondence newCorrespondence) {
-        correspondenceSelectedListeners.forEach(listener -> listener.correspondenceSelected(newCorrespondence));
+    public void fireCorrespondenceSelected(Event event) {
+        correspondenceSelectedListeners.forEach(listener -> listener.correspondenceSelected(event));
     }
 }
