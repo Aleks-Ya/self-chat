@@ -34,12 +34,13 @@ class UserServiceImpl implements UserService {
     }
 
     public User getCurrentUser() {
-        return vaadinService.getUserFromSession();
+        String userId = vaadinService.getUserIdFromSession();
+        return userId != null ? repo.findOne(userId) : null;
     }
 
     @Override
     public void setCurrentUser(User user) {
-        vaadinService.setUserToSession(user);
+        vaadinService.setUserIdToSession(user.getId());
     }
 
     @Override

@@ -2,9 +2,6 @@ package ru.yaal.seflchat.service.vaadin;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import ru.yaal.seflchat.data.Correspondence;
-import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.spring.SpringProfiles;
 
 import javax.servlet.http.Cookie;
@@ -16,9 +13,9 @@ import javax.servlet.http.Cookie;
 @Profile(SpringProfiles.TEST)
 class TestVaadinService extends AbstractVaadinService {
     private Cookie cookie;
-    private User user;
-    private Correspondence correspondence;
-    private Dialog dialog;
+    private String userId;
+    private String correspondenceId;
+    private String dialogId;
 
     @Override
     public Cookie getUserCookie() {
@@ -31,32 +28,32 @@ class TestVaadinService extends AbstractVaadinService {
     }
 
     @Override
-    public void setUserToSession(User user) {
-        this.user = user;
+    public void setUserIdToSession(String userId) {
+        this.userId = userId;
     }
 
     @Override
-    public User getUserFromSession() {
-        return user;
+    public String getUserIdFromSession() {
+        return userId;
     }
 
     @Override
-    public Correspondence getCorrespondenceFromSession() {
-        return correspondence;
+    public String getCorrespondenceIdFromSession() {
+        return correspondenceId;
     }
 
     @Override
-    public void setCorrespondenceToSession(Correspondence correspondence) {
-        this.correspondence = correspondence;
+    public void setCorrespondenceIdToSession(String correspondenceId) {
+        this.correspondenceId = correspondenceId;
     }
 
     @Override
-    public Dialog getDialogFromSession() {
-        return dialog;
+    public String getDialogIdFromSession() {
+        return dialogId;
     }
 
     @Override
-    public void setDialogToSession(Dialog dialog) {
-        this.dialog = dialog;
+    public void setDialogIdToSession(String dialogId) {
+        this.dialogId = dialogId;
     }
 }

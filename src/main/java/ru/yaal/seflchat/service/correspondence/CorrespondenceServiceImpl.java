@@ -39,18 +39,29 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public synchronized Correspondence getCurrentCorrespondence() {
-        Correspondence correspondence = vaadinService.getCorrespondenceFromSession();
+        Correspondence correspondence = takeCorrespondenceFromSession();
         if (correspondence == null) {
-            correspondence = cRepo.findByUser(userService.getCurrentUser())
-                    .orElseGet(() -> createCorrespondence(new Correspondence(userService.getCurrentUser())));
-            setCurrentCorrespondence(correspondence);
+            correspondence = takeCorrespondenceByUser();
         }
+        if (correspondence == null) {
+            correspondence = createCorrespondence(new Correspondence(userService.getCurrentUser()));
+        }
+        setCurrentCorrespondence(correspondence);
         return correspondence;
     }
 
     private synchronized void setCurrentCorrespondence(Correspondence correspondence) {
-        vaadinService.setCorrespondenceToSession(correspondence);
+        vaadinService.setCorrespondenceIdToSession(correspondence.getId());
         eventService.fireCorrespondenceSelected();
+    }
+
+    private Correspondence takeCorrespondenceFromSession() {
+        String correspondenceId = vaadinService.getCorrespondenceIdFromSession();
+        return correspondenceId != null ? cRepo.findOne(correspondenceId) : null;
+    }
+
+    private Correspondence takeCorrespondenceByUser() {
+        return cRepo.findByUser(userService.getCurrentUser()).orElse(null);
     }
 
     @Override
@@ -74,16 +85,6 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
         eventService.fireDialogRemoved(dialog);
     }
 
-
-//    @Autowired
-//    private CurrentDialogServiceImpl(DialogRepository repo, CorrespondenceService correspondenceService,
-//                                     VaadinService vaadinService, EventService eventService) {
-//        this.repo = repo;
-//        this.correspondenceService = correspondenceService;
-//        this.vaadinService = vaadinService;
-//        this.eventService = eventService;
-//    }
-
     public List<Dialog> getCurrentUserDialogs() {
         return getCurrentCorrespondence().getUserDialogs();
     }
@@ -98,7 +99,7 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public synchronized Dialog getCurrentDialog() {
-        Dialog dialog = vaadinService.getDialogFromSession();
+        Dialog dialog = takeDialogFromSession();
         if (dialog == null) {
             List<Dialog> dialogs = getCurrentUserDialogs();
             if (dialogs.isEmpty()) {
@@ -112,9 +113,14 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
     }
 
     public synchronized void setCurrentDialog(String dialogId) {
+        vaadinService.setDialogIdToSession(dialogId);
         Dialog dialog = dRepo.findOne(dialogId);
-        vaadinService.setDialogToSession(dialog);
         eventService.fireDialogSelected(dialog);
+    }
+
+    private Dialog takeDialogFromSession() {
+        String dialogId = vaadinService.getDialogIdFromSession();
+        return dialogId != null ? dRepo.findOne(dialogId) : null;
     }
 
     @Override

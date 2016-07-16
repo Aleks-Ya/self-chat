@@ -1,9 +1,5 @@
 package ru.yaal.seflchat.service.vaadin;
 
-import ru.yaal.seflchat.data.Correspondence;
-import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.data.User;
-
 import javax.servlet.http.Cookie;
 
 /**
@@ -14,15 +10,15 @@ public interface VaadinService {
 
     void setUserCookie(String value);
 
-    void setUserToSession(User user);
+    void setUserIdToSession(String userId);
 
-    User getUserFromSession();
+    String getUserIdFromSession();
 
-    Correspondence getCorrespondenceFromSession();
+    String getCorrespondenceIdFromSession();
 
-    void setCorrespondenceToSession(Correspondence correspondence);
+    void setCorrespondenceIdToSession(String correspondenceId);
 
-    Dialog getDialogFromSession();
+    String getDialogIdFromSession();
 
-    void setDialogToSession(Dialog dialog);
+    void setDialogIdToSession(String dialogId);
 }

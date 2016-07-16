@@ -4,9 +4,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-import ru.yaal.seflchat.data.Correspondence;
-import ru.yaal.seflchat.data.Dialog;
-import ru.yaal.seflchat.data.User;
 import ru.yaal.seflchat.spring.SpringProfiles;
 
 import javax.servlet.http.Cookie;
@@ -18,6 +15,18 @@ import javax.servlet.http.Cookie;
 @Component
 @Profile(SpringProfiles.OPEN_SHIFT)
 class OpenShiftVaadinService extends AbstractVaadinService {
+
+    private static Cookie getCookieByName(VaadinRequest request, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookieName.equals(cookie.getName())) {
+                    return cookie;
+                }
+            }
+        }
+        return null;
+    }
 
     @Override
     public Cookie getUserCookie() {
@@ -31,44 +40,32 @@ class OpenShiftVaadinService extends AbstractVaadinService {
     }
 
     @Override
-    public void setUserToSession(User user) {
-        VaadinSession.getCurrent().setAttribute(currentUserAttr, user);
+    public void setUserIdToSession(String userId) {
+        VaadinSession.getCurrent().setAttribute(currentUserIdAttr, userId);
     }
 
     @Override
-    public User getUserFromSession() {
-        return (User) VaadinSession.getCurrent().getAttribute(currentUserAttr);
+    public String getUserIdFromSession() {
+        return (String) VaadinSession.getCurrent().getAttribute(currentUserIdAttr);
     }
 
     @Override
-    public Correspondence getCorrespondenceFromSession() {
-        return (Correspondence) VaadinSession.getCurrent().getAttribute(correspondenceAttr);
+    public String getCorrespondenceIdFromSession() {
+        return (String) VaadinSession.getCurrent().getAttribute(correspondenceIdAttr);
     }
 
     @Override
-    public void setCorrespondenceToSession(Correspondence correspondence) {
-        VaadinSession.getCurrent().setAttribute(correspondenceAttr, correspondence);
+    public void setCorrespondenceIdToSession(String correspondenceId) {
+        VaadinSession.getCurrent().setAttribute(correspondenceIdAttr, correspondenceId);
     }
 
     @Override
-    public Dialog getDialogFromSession() {
-        return (Dialog) VaadinSession.getCurrent().getAttribute(dialogAttr);
+    public String getDialogIdFromSession() {
+        return (String) VaadinSession.getCurrent().getAttribute(dialogIdAttr);
     }
 
     @Override
-    public void setDialogToSession(Dialog dialog) {
-        VaadinSession.getCurrent().setAttribute(dialogAttr, dialog);
-    }
-
-    private static Cookie getCookieByName(VaadinRequest request, String cookieName) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookieName.equals(cookie.getName())) {
-                    return cookie;
-                }
-            }
-        }
-        return null;
+    public void setDialogIdToSession(String dialogId) {
+        VaadinSession.getCurrent().setAttribute(dialogIdAttr, dialogId);
     }
 }
