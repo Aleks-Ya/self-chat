@@ -41,7 +41,7 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
     private Dialog createDialogForCurrentUser() {
         Dialog dialog = new Dialog("dialog_" + LocalDateTime.now());
         repo.insert(dialog);
-        setCurrentDialog(dialog);
+        setCurrentDialog(dialog.getId());
         correspondenceService.addDialog(dialog);
         return dialog;
     }
@@ -59,12 +59,13 @@ class CurrentDialogServiceImpl implements CurrentDialogService {
             } else {
                 dialog = dialogs.get(0);
             }
-            setCurrentDialog(dialog);
+            setCurrentDialog(dialog.getId());
         }
         return dialog;
     }
 
-    public synchronized void setCurrentDialog(Dialog dialog) {
+    public synchronized void setCurrentDialog(String dialogId) {
+        Dialog dialog = repo.findOne(dialogId);
         vaadinService.setDialogToSession(dialog);
         fireCurrentDialogChanged();
     }

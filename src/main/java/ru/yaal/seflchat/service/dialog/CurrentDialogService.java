@@ -18,7 +18,7 @@ public interface CurrentDialogService {
 
     void addListener(CurrentDialogListener listener);
 
-    void setCurrentDialog(Dialog dialog);
+    void setCurrentDialog(String dialogId);
 
     Message.Alignment getNextMessageAlignment();
 

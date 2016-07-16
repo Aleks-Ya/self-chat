@@ -3,11 +3,7 @@ package ru.yaal.seflchat.ui;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
@@ -29,6 +25,7 @@ class MainView extends VerticalLayout implements View {
         tfDialogName.setValue(service.getCurrentDialog().getName());
         tfDialogName.setWidth("100%");
         tfDialogName.addValueChangeListener(event -> service.renameCurrentDialog(event.getProperty().getValue().toString()));
+        service.addListener(dialog -> tfDialogName.setValue(service.getCurrentDialog().getName()));
 
         Button bClear = new Button("Clear dialog");
         bClear.addClickListener(event -> service.clearCurrentDialog());

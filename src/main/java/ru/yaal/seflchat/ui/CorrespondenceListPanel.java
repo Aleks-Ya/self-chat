@@ -5,6 +5,7 @@ import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
@@ -24,7 +25,8 @@ class CorrespondenceListPanel extends Panel
     private Correspondence value;
     private final Table table = new Table();
 
-    CorrespondenceListPanel() {
+    @Autowired
+    CorrespondenceListPanel(CurrentDialogService dialogService) {
         log.info("Create " + getClass().getSimpleName());
         table.addContainerProperty("Dialogs", String.class, null);
         VerticalLayout vertical = new VerticalLayout();
@@ -32,14 +34,15 @@ class CorrespondenceListPanel extends Panel
         setContent(vertical);
         setSizeFull();
         table.setSizeFull();
+        table.addItemClickListener(event -> dialogService.setCurrentDialog(event.getItemId().toString()));
     }
 
     private void update() {
         table.removeAllItems();
         List<Dialog> dialogs = value.getUserDialogs();
-        for (int i = 0; i < dialogs.size(); i++) {
-            Object[] item = new Object[]{dialogs.get(i).getName()};
-            table.addItem(item, i);
+        for (Dialog dialog : dialogs) {
+            Object[] item = new Object[]{dialog.getName()};
+            table.addItem(item, dialog.getId());
         }
         table.setPageLength(table.size());
     }
