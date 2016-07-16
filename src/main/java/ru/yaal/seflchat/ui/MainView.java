@@ -20,7 +20,7 @@ class MainView extends VerticalLayout implements View, EventService.DialogSelect
 
     @Autowired
     MainView(NewMessagePanel newMessagePanel, CorrespondenceListPanel correspondenceListPanel,
-             CorrespondencePanel correspondencePanel, CorrespondenceService corService) {
+             CorrespondencePanel correspondencePanel, CorrespondenceService corService, MessagesPanel messagesPanel) {
         log.info("Create " + getClass().getSimpleName());
 
         tfDialogName.setValue(corService.getCurrentDialog().getName());
@@ -29,8 +29,6 @@ class MainView extends VerticalLayout implements View, EventService.DialogSelect
 
         Button bClear = new Button("Clear dialog");
         bClear.addClickListener(event -> corService.clearCurrentDialog());
-
-        MessagesPanel messagesPanel = new MessagesPanel();
 
         GridLayout grid = new GridLayout(3, 8);
         grid.addComponent(correspondencePanel, 0, 0, 0, 7);
