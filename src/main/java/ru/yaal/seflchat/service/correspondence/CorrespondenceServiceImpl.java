@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
-import ru.yaal.seflchat.repository.CorrespondenceRepository;
+import ru.yaal.seflchat.repository.CorrespondenceDao;
 import ru.yaal.seflchat.repository.DialogRepository;
 import ru.yaal.seflchat.service.event.EventService;
 import ru.yaal.seflchat.service.user.UserService;
@@ -22,14 +22,14 @@ import java.util.List;
 @Slf4j
 @Service
 class CorrespondenceServiceImpl implements CorrespondenceService {
-    private final CorrespondenceRepository cRepo;
+    private final CorrespondenceDao cRepo;
     private final UserService userService;
     private final DialogRepository dRepo;
     private final VaadinService vaadinService;
     private final EventService eventService;
 
     @Autowired
-    private CorrespondenceServiceImpl(CorrespondenceRepository cRepo, UserService userService,
+    private CorrespondenceServiceImpl(CorrespondenceDao cRepo, UserService userService,
                                       DialogRepository dRepo, VaadinService vaadinService, EventService eventService) {
         this.cRepo = cRepo;
         this.userService = userService;
