@@ -8,7 +8,7 @@ import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.repository.CorrespondenceDao;
-import ru.yaal.seflchat.repository.DialogRepository;
+import ru.yaal.seflchat.repository.DialogDao;
 import ru.yaal.seflchat.service.event.EventService;
 import ru.yaal.seflchat.service.user.UserService;
 import ru.yaal.seflchat.service.vaadin.VaadinService;
@@ -24,13 +24,13 @@ import java.util.List;
 class CorrespondenceServiceImpl implements CorrespondenceService {
     private final CorrespondenceDao cRepo;
     private final UserService userService;
-    private final DialogRepository dRepo;
+    private final DialogDao dRepo;
     private final VaadinService vaadinService;
     private final EventService eventService;
 
     @Autowired
     private CorrespondenceServiceImpl(CorrespondenceDao cRepo, UserService userService,
-                                      DialogRepository dRepo, VaadinService vaadinService, EventService eventService) {
+                                      DialogDao dRepo, VaadinService vaadinService, EventService eventService) {
         this.cRepo = cRepo;
         this.userService = userService;
         this.dRepo = dRepo;

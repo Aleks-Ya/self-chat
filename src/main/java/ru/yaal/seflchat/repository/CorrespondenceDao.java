@@ -11,7 +11,6 @@ import java.util.Optional;
 public interface CorrespondenceDao {
     Optional<Correspondence> findByUser(User user);
 
-    //    List<Correspondence> save(Iterable<Correspondence> entites);
     Correspondence save(Correspondence correspondence);
 
     Correspondence insert(Correspondence correspondence);
