@@ -1,13 +1,13 @@
-package ru.yaal.seflchat.repository;
+package ru.yaal.seflchat.repository.spring;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import ru.yaal.seflchat.data.User;
+import ru.yaal.seflchat.repository.UserDao;
 
 import java.util.Optional;
 
 /**
  * @author Yablokov Aleksey
  */
-public interface UserRepository extends MongoRepository<User, String> {
-    Optional<User> findByCookieValue(String cookieValue);
+interface UserSpringDaoImpl extends MongoRepository<User, String>, UserDao {
 }

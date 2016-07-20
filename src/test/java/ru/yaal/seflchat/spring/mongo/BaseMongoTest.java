@@ -7,7 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.yaal.seflchat.repository.CorrespondenceDao;
 import ru.yaal.seflchat.repository.DialogDao;
-import ru.yaal.seflchat.repository.UserRepository;
+import ru.yaal.seflchat.repository.UserDao;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 import ru.yaal.seflchat.spring.SpringProfiles;
 
@@ -20,7 +20,7 @@ import ru.yaal.seflchat.spring.SpringProfiles;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public abstract class BaseMongoTest {
     @Autowired
-    protected UserRepository uRepo;
+    protected UserDao uRepo;
     @Autowired
     protected CorrespondenceDao cRepo;
     @Autowired

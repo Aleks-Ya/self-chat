@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yaal.seflchat.data.User;
-import ru.yaal.seflchat.repository.UserRepository;
+import ru.yaal.seflchat.repository.UserDao;
 import ru.yaal.seflchat.service.vaadin.VaadinService;
 
 import javax.servlet.http.Cookie;
@@ -18,11 +18,11 @@ import java.util.Optional;
 @Service
 class UserServiceImpl implements UserService {
 
-    private final UserRepository repo;
+    private final UserDao repo;
     private final VaadinService vaadinService;
 
     @Autowired
-    private UserServiceImpl(UserRepository repo, VaadinService vaadinService) {
+    private UserServiceImpl(UserDao repo, VaadinService vaadinService) {
         this.repo = repo;
         this.vaadinService = vaadinService;
     }
