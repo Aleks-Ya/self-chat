@@ -39,13 +39,26 @@ class MessagePanel extends Panel implements Property<Message> {
     }
 
     private void setText(String text, Message.Alignment alignment) {
-        if (alignment == Message.Alignment.RIGHT) {
-            label.setValue("<p align='right'>" + text + "</p>");
-            vertical.setComponentAlignment(label, Alignment.TOP_RIGHT);
-        } else {
-            label.setValue("<p align='left'>" + text + "</p>");
-            vertical.setComponentAlignment(label, Alignment.TOP_LEFT);
+        Alignment alignmentVaadin = alignment == Message.Alignment.RIGHT ? Alignment.TOP_RIGHT : Alignment.TOP_LEFT;
+        vertical.setComponentAlignment(label, alignmentVaadin);
+
+        String res = formatHtml(text, alignment);
+
+        log.info("Formatted message text: \"{}\"", res);
+        label.setValue(res);
+    }
+
+    private String formatHtml(String text, Message.Alignment alignment) {
+        StringBuilder sb = new StringBuilder();
+        for (String line : text.split("\\n")) {
+            if (alignment == Message.Alignment.RIGHT) {
+                sb.append("<p align='right'>");
+            } else {
+                sb.append("<p align='left'>");
+            }
+            sb.append(line).append("</p>");
         }
+        return sb.toString();
     }
 
     @Override
