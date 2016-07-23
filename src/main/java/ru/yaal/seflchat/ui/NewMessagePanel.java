@@ -19,32 +19,52 @@ import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 @Component
 @UIScope
 class NewMessagePanel extends VerticalLayout {
+    private final TextArea area = new TextArea("Enter message and press Ctrl-Enter, Ctrl-Right or Ctrl-Left:");
+    private final CorrespondenceService service;
 
     @Autowired
     NewMessagePanel(CorrespondenceService service) {
+        this.service = service;
+
         log.info("Create " + getClass().getSimpleName());
-        TextArea area = new TextArea("Enter message:");
         area.setRows(5);
         area.setColumns(50);
 
-        ShortcutListener ctrlEnterListener = new ShortcutListener("Ctrl-Enter",
+        area.addShortcutListener(new ShortcutListener("Ctrl-Enter",
                 ShortcutAction.KeyCode.ENTER, new int[]{ShortcutAction.ModifierKey.CTRL}) {
             @Override
             public void handleAction(Object sender, Object target) {
-                String content = ((TextArea) target).getValue();
-                if (!content.isEmpty()) {
-                    Message.Alignment alignment = service.getNextMessageAlignment();
-                    Message message = new Message(content, alignment);
-                    service.addMessageToCurrentDialog(message);
-                    area.clear();
-                }
+                Message.Alignment alignment = service.getNextMessageAlignment();
+                handler(target, alignment);
             }
-        };
-        area.addShortcutListener(ctrlEnterListener);
+        });
+        area.addShortcutListener(new ShortcutListener("Ctrl-Right",
+                ShortcutAction.KeyCode.ARROW_RIGHT, new int[]{ShortcutAction.ModifierKey.CTRL}) {
+            @Override
+            public void handleAction(Object sender, Object target) {
+                handler(target, Message.Alignment.RIGHT);
+            }
+        });
+        area.addShortcutListener(new ShortcutListener("Ctrl-Left",
+                ShortcutAction.KeyCode.ARROW_LEFT, new int[]{ShortcutAction.ModifierKey.CTRL}) {
+            @Override
+            public void handleAction(Object sender, Object target) {
+                handler(target, Message.Alignment.LEFT);
+            }
+        });
 
         addComponent(area);
         setComponentAlignment(area, Alignment.MIDDLE_CENTER);
         setSizeFull();
         area.focus();
+    }
+
+    private void handler(Object target, Message.Alignment alignment) {
+        String content = ((TextArea) target).getValue();
+        if (!content.isEmpty()) {
+            Message message = new Message(content, alignment);
+            service.addMessageToCurrentDialog(message);
+            area.clear();
+        }
     }
 }
