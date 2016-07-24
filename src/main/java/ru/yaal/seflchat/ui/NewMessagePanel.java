@@ -12,6 +12,9 @@ import org.springframework.stereotype.Component;
 import ru.yaal.seflchat.data.Message;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 
+import static com.vaadin.event.ShortcutAction.ModifierKey.ALT;
+import static com.vaadin.event.ShortcutAction.ModifierKey.CTRL;
+
 /**
  * @author Yablokov Aleksey
  */
@@ -19,7 +22,7 @@ import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 @Component
 @UIScope
 class NewMessagePanel extends VerticalLayout {
-    private final TextArea area = new TextArea("Enter message and press Ctrl-Enter, Ctrl-Right or Ctrl-Left:");
+    private final TextArea area = new TextArea("Enter message and press Ctrl-Enter, Ctrl-Alt-R or Ctrl-Alt-L:");
     private final CorrespondenceService service;
 
     @Autowired
@@ -31,22 +34,22 @@ class NewMessagePanel extends VerticalLayout {
         area.setColumns(50);
 
         area.addShortcutListener(new ShortcutListener("Ctrl-Enter",
-                ShortcutAction.KeyCode.ENTER, new int[]{ShortcutAction.ModifierKey.CTRL}) {
+                ShortcutAction.KeyCode.ENTER, new int[]{CTRL}) {
             @Override
             public void handleAction(Object sender, Object target) {
                 Message.Alignment alignment = service.getNextMessageAlignment();
                 handler(target, alignment);
             }
         });
-        area.addShortcutListener(new ShortcutListener("Ctrl-Right",
-                ShortcutAction.KeyCode.ARROW_RIGHT, new int[]{ShortcutAction.ModifierKey.CTRL}) {
+        area.addShortcutListener(new ShortcutListener("Ctrl-Alt-R",
+                ShortcutAction.KeyCode.R, new int[]{CTRL, ALT}) {
             @Override
             public void handleAction(Object sender, Object target) {
                 handler(target, Message.Alignment.RIGHT);
             }
         });
-        area.addShortcutListener(new ShortcutListener("Ctrl-Left",
-                ShortcutAction.KeyCode.ARROW_LEFT, new int[]{ShortcutAction.ModifierKey.CTRL}) {
+        area.addShortcutListener(new ShortcutListener("Ctrl-Alt-L",
+                ShortcutAction.KeyCode.L, new int[]{CTRL, ALT}) {
             @Override
             public void handleAction(Object sender, Object target) {
                 handler(target, Message.Alignment.LEFT);
