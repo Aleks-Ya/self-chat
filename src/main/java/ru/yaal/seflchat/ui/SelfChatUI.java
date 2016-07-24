@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.ui;
 
+import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
@@ -11,9 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import ru.yaal.seflchat.service.user.UserService;
 
-@SuppressWarnings("WeakerAccess")
-@SpringUI
 @Slf4j
+@SpringUI
+@Title("SelfChat - OpenShift")
+@SuppressWarnings("WeakerAccess")
 public class SelfChatUI extends UI {
 
     @Autowired
