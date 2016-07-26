@@ -21,7 +21,7 @@ import static com.vaadin.event.ShortcutAction.ModifierKey.CTRL;
 @Slf4j
 @Component
 @UIScope
-public class NewMessagePanel extends VerticalLayout {
+class NewMessagePanel extends VerticalLayout {
     private final TextArea area = new TextArea("Enter message and press Ctrl-Enter, Ctrl-Alt-R or Ctrl-Alt-L:");
     private final CorrespondenceService service;
 
