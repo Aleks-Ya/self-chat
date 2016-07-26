@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.ui.center;
 
+import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
@@ -23,7 +24,11 @@ class DialogNamePanel extends Panel implements EventService.DialogSelectedListen
 
     @Autowired
     public DialogNamePanel(CorrespondenceService corService) {
+        Page.getCurrent().getStyles().add(".v-label-center {" +
+                "   text-align:center !important;" +
+                " }");
         view.setWidth("100%");
+        view.addStyleName("center");
 
         edit.setWidth("100%");
         edit.addValueChangeListener(event -> {
