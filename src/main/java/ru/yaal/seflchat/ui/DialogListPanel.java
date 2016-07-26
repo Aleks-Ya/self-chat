@@ -1,6 +1,7 @@
 package ru.yaal.seflchat.ui;
 
 import com.vaadin.data.Property;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -12,8 +13,6 @@ import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 import ru.yaal.seflchat.service.event.DialogEvent;
 import ru.yaal.seflchat.service.event.EventService;
-
-import java.util.List;
 
 /**
  * @author Yablokov Aleksey
@@ -30,22 +29,27 @@ class DialogListPanel extends Panel
     @Autowired
     DialogListPanel(CorrespondenceService corService) {
         log.info("Create " + getClass().getSimpleName());
-        table.addContainerProperty("Dialogs", String.class, null);
+
+        table.setCaption("Dialogs");
+        table.setContainerDataSource(new BeanItemContainer<>(Dialog.class));
+        table.setSizeFull();
+        table.addItemClickListener(event -> {
+            Dialog itemId = (Dialog) event.getItemId();
+            corService.setCurrentDialog(itemId.getId());
+        });
+
         VerticalLayout vertical = new VerticalLayout();
         vertical.addComponent(table);
         setContent(vertical);
         setSizeFull();
-        table.setSizeFull();
-        table.addItemClickListener(event -> corService.setCurrentDialog(event.getItemId().toString()));
     }
 
     private void update() {
-        table.removeAllItems();
-        List<Dialog> dialogs = value.getUserDialogs();
-        for (Dialog dialog : dialogs) {
-            Object[] item = new Object[]{dialog.getName()};
-            table.addItem(item, dialog.getId());
-        }
+        BeanItemContainer<Dialog> container = (BeanItemContainer<Dialog>) table.getContainerDataSource();
+        container.removeAllItems();
+        value.getUserDialogs().forEach(container::addBean);
+        container.removeContainerProperty("id");
+        container.removeContainerProperty("messages");
         table.setPageLength(table.size());
     }
 
