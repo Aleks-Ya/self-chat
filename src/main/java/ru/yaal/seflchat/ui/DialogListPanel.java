@@ -2,6 +2,7 @@ package ru.yaal.seflchat.ui;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
@@ -24,6 +25,7 @@ class DialogListPanel extends Panel
         EventService.DialogRenamedListener {
 
     private final Table table = new Table();
+    private final BeanItemContainer<Dialog> container = new BeanItemContainer<>(Dialog.class);
     private Correspondence value;
 
     @Autowired
@@ -31,12 +33,13 @@ class DialogListPanel extends Panel
         log.info("Create " + getClass().getSimpleName());
 
         table.setCaption("Dialogs");
-        table.setContainerDataSource(new BeanItemContainer<>(Dialog.class));
+        table.setContainerDataSource(container);
         table.setSizeFull();
         table.addItemClickListener(event -> {
             Dialog itemId = (Dialog) event.getItemId();
             corService.setCurrentDialog(itemId.getId());
         });
+        table.addGeneratedColumn("Delete", new DeleteColumnGenerator(corService));
 
         VerticalLayout vertical = new VerticalLayout();
         vertical.addComponent(table);
@@ -45,7 +48,6 @@ class DialogListPanel extends Panel
     }
 
     private void update() {
-        BeanItemContainer<Dialog> container = (BeanItemContainer<Dialog>) table.getContainerDataSource();
         container.removeAllItems();
         value.getUserDialogs().forEach(container::addBean);
         container.removeContainerProperty("id");
@@ -82,5 +84,25 @@ class DialogListPanel extends Panel
     @Override
     public void dialogRemoved(DialogEvent event) {
         setValue(event.getSelectedCorrespondence().get());
+    }
+
+    private class DeleteColumnGenerator implements Table.ColumnGenerator {
+        private CorrespondenceService corService;
+
+        DeleteColumnGenerator(CorrespondenceService corService) {
+            this.corService = corService;
+        }
+
+        public com.vaadin.ui.Component generateCell(Table source, Object itemId, Object columnId) {
+            return new Button("Delete", event -> {
+                Dialog dialog = (Dialog) itemId;
+                if (dialog.equals(corService.getCurrentDialog())) {
+                    Dialog firstDialog = corService.getCurrentCorrespondence().getUserDialogs().get(0);
+                    corService.setCurrentDialog(firstDialog.getId());
+                }
+                corService.removeDialog(dialog);
+                source.markAsDirty();
+            });
+        }
     }
 }

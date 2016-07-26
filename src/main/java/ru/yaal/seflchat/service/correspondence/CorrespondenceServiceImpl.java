@@ -81,6 +81,7 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
 
     @Override
     public void removeDialog(Dialog dialog) {
+        log.info("Delete dialog: {}", dialog);
         dRepo.delete(dialog);
         eventService.fireDialogRemoved(dialog);
     }
