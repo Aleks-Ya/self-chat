@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 class CorrespondencePanel extends Panel {
 
     @Autowired
-    CorrespondencePanel(CorrespondenceListPanel listPanel, CorrespondenceButtonsPanel buttonsPanel) {
+    CorrespondencePanel(DialogListPanel listPanel, CorrespondenceButtonsPanel buttonsPanel) {
         log.info("Create " + getClass().getSimpleName());
 
         VerticalLayout layout = new VerticalLayout();

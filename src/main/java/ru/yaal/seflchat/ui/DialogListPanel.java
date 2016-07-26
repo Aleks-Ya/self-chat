@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-class CorrespondenceListPanel extends Panel
+class DialogListPanel extends Panel
         implements Property<Correspondence>, EventService.DialogAddedListener, EventService.DialogRemovedListener,
         EventService.DialogRenamedListener {
 
@@ -28,7 +28,7 @@ class CorrespondenceListPanel extends Panel
     private Correspondence value;
 
     @Autowired
-    CorrespondenceListPanel(CorrespondenceService corService) {
+    DialogListPanel(CorrespondenceService corService) {
         log.info("Create " + getClass().getSimpleName());
         table.addContainerProperty("Dialogs", String.class, null);
         VerticalLayout vertical = new VerticalLayout();

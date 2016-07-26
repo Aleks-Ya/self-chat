@@ -19,7 +19,7 @@ class MainView extends VerticalLayout implements View, EventService.DialogSelect
     private final TextField tfDialogName = new TextField("Dialog name");
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, CorrespondenceListPanel correspondenceListPanel,
+    MainView(NewMessagePanel newMessagePanel, DialogListPanel correspondenceListPanel,
              CorrespondencePanel correspondencePanel, CorrespondenceService corService, MessagesPanel messagesPanel) {
         log.info("Create " + getClass().getSimpleName());
 
