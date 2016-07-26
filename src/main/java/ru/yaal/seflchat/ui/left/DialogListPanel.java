@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.ui;
+package ru.yaal.seflchat.ui.left;
 
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;

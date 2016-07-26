@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.ui;
+package ru.yaal.seflchat.ui.center;
 
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
@@ -21,7 +21,7 @@ import static com.vaadin.event.ShortcutAction.ModifierKey.CTRL;
 @Slf4j
 @Component
 @UIScope
-class NewMessagePanel extends VerticalLayout {
+public class NewMessagePanel extends VerticalLayout {
     private final TextArea area = new TextArea("Enter message and press Ctrl-Enter, Ctrl-Alt-R or Ctrl-Alt-L:");
     private final CorrespondenceService service;
 

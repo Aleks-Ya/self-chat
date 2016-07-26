@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.ui;
+package ru.yaal.seflchat.ui.center;
 
 import com.vaadin.data.Property;
 import com.vaadin.shared.ui.label.ContentMode;

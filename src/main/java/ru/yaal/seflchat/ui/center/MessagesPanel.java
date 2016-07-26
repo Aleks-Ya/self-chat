@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.ui;
+package ru.yaal.seflchat.ui.center;
 
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Panel;
@@ -18,7 +18,7 @@ import ru.yaal.seflchat.service.event.EventService;
 @Slf4j
 @Component
 @UIScope
-class MessagesPanel extends Panel implements EventService.DialogMessageAddedListener, EventService.DialogSelectedListener {
+public class MessagesPanel extends Panel implements EventService.DialogMessageAddedListener, EventService.DialogSelectedListener {
     private final VerticalLayout vertical = new VerticalLayout();
 
     @Autowired

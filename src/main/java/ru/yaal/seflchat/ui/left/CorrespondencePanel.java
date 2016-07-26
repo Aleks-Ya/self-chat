@@ -1,4 +1,4 @@
-package ru.yaal.seflchat.ui;
+package ru.yaal.seflchat.ui.left;
 
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-class CorrespondencePanel extends Panel {
+public class CorrespondencePanel extends Panel {
 
     @Autowired
     CorrespondencePanel(DialogListPanel listPanel, CorrespondenceButtonsPanel buttonsPanel) {

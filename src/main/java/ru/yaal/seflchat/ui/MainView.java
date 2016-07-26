@@ -10,6 +10,9 @@ import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 import ru.yaal.seflchat.service.event.DialogEvent;
 import ru.yaal.seflchat.service.event.EventService;
+import ru.yaal.seflchat.ui.center.MessagesPanel;
+import ru.yaal.seflchat.ui.center.NewMessagePanel;
+import ru.yaal.seflchat.ui.left.CorrespondencePanel;
 
 /**
  * @author Yablokov Aleksey
