@@ -6,6 +6,7 @@ import com.vaadin.spring.annotation.SpringView;
 import com.vaadin.ui.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 import ru.yaal.seflchat.service.event.DialogEvent;
 import ru.yaal.seflchat.service.event.EventService;
@@ -17,11 +18,16 @@ import ru.yaal.seflchat.service.event.EventService;
 @Slf4j
 class MainView extends VerticalLayout implements View, EventService.DialogSelectedListener {
     private final TextField tfDialogName = new TextField("Dialog name");
+    private final EventService eventService;
+    private final CorrespondenceService corService;
 
     @Autowired
-    MainView(NewMessagePanel newMessagePanel, DialogListPanel correspondenceListPanel,
-             CorrespondencePanel correspondencePanel, CorrespondenceService corService, MessagesPanel messagesPanel) {
+    MainView(NewMessagePanel newMessagePanel, CorrespondencePanel correspondencePanel,
+             MessagesPanel messagesPanel, CorrespondenceService corService, EventService eventService) {
         log.info("Create " + getClass().getSimpleName());
+
+        this.corService = corService;
+        this.eventService = eventService;
 
         tfDialogName.setValue(corService.getCurrentDialog().getName());
         tfDialogName.setWidth("100%");
@@ -42,12 +48,12 @@ class MainView extends VerticalLayout implements View, EventService.DialogSelect
         grid.setComponentAlignment(bClear, Alignment.BOTTOM_RIGHT);
 
         setSizeFull();
-        correspondenceListPanel.setValue(corService.getCurrentCorrespondence());
-//        service.fireCurrentDialogChanged();
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent event) {
+        Correspondence currentCorrespondence = corService.getCurrentCorrespondence();
+        eventService.fireCorrespondenceSelected(currentCorrespondence);
     }
 
     @Override

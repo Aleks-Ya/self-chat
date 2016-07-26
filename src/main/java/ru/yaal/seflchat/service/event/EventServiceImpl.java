@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
+import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 import ru.yaal.seflchat.service.correspondence.CorrespondenceService;
 
@@ -52,10 +53,10 @@ class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void fireCorrespondenceSelected() {
+    public void fireCorrespondenceSelected(Correspondence correspondence) {
         takeBeans(CorrespondenceSelectedListener.class)
                 .forEach(listener -> listener.correspondenceSelected(
-                        new Event(() -> correspondenceService.getCurrentCorrespondence(), () -> correspondenceService.getCurrentDialog())));
+                        new Event(() -> correspondence, () -> correspondenceService.getCurrentDialog())));
     }
 
     private <T> Collection<T> takeBeans(Class<T> clazz) {

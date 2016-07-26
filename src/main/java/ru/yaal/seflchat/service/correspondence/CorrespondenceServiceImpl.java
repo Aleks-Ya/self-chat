@@ -52,7 +52,7 @@ class CorrespondenceServiceImpl implements CorrespondenceService {
 
     private synchronized void setCurrentCorrespondence(Correspondence correspondence) {
         vaadinService.setCorrespondenceIdToSession(correspondence.getId());
-        eventService.fireCorrespondenceSelected();
+        eventService.fireCorrespondenceSelected(correspondence);
     }
 
     private Correspondence takeCorrespondenceFromSession() {

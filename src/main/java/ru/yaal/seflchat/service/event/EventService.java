@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.service.event;
 
+import ru.yaal.seflchat.data.Correspondence;
 import ru.yaal.seflchat.data.Dialog;
 
 /**
@@ -18,7 +19,7 @@ public interface EventService {
 
     void fireDialogCleared(Dialog dialog);
 
-    void fireCorrespondenceSelected();
+    void fireCorrespondenceSelected(Correspondence correspondence);
 
     interface DialogAddedListener {
         void dialogAdded(DialogEvent event);

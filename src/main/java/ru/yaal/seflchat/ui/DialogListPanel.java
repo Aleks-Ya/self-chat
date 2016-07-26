@@ -1,6 +1,5 @@
 package ru.yaal.seflchat.ui;
 
-import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
@@ -20,13 +19,11 @@ import ru.yaal.seflchat.service.event.EventService;
  */
 @Slf4j
 @Component
-class DialogListPanel extends Panel
-        implements Property<Correspondence>, EventService.DialogAddedListener, EventService.DialogRemovedListener,
-        EventService.DialogRenamedListener {
+class DialogListPanel extends Panel implements EventService.DialogAddedListener,
+        EventService.DialogRemovedListener, EventService.DialogRenamedListener, EventService.CorrespondenceSelectedListener {
 
     private final Table table = new Table();
     private final BeanItemContainer<Dialog> container = new BeanItemContainer<>(Dialog.class);
-    private Correspondence value;
 
     @Autowired
     DialogListPanel(CorrespondenceService corService) {
@@ -47,43 +44,32 @@ class DialogListPanel extends Panel
         setSizeFull();
     }
 
-    private void update() {
+    private void update(Correspondence newCorrespondence) {
         container.removeAllItems();
-        value.getUserDialogs().forEach(container::addBean);
+        newCorrespondence.getUserDialogs().forEach(container::addBean);
         container.removeContainerProperty("id");
         container.removeContainerProperty("messages");
         table.setPageLength(table.size());
     }
 
     @Override
-    public Correspondence getValue() {
-        return value;
-    }
-
-    @Override
-    public void setValue(Correspondence newValue) throws ReadOnlyException {
-        value = newValue;
-        update();
-    }
-
-    @Override
-    public Class<? extends Correspondence> getType() {
-        return Correspondence.class;
-    }
-
-    @Override
     public void dialogAdded(DialogEvent event) {
-        setValue(event.getSelectedCorrespondence().get());
+        update(event.getSelectedCorrespondence().get());
     }
 
     @Override
     public void dialogRenamed(DialogEvent event) {
-        setValue(event.getSelectedCorrespondence().get());
+        update(event.getSelectedCorrespondence().get());
     }
 
     @Override
     public void dialogRemoved(DialogEvent event) {
-        setValue(event.getSelectedCorrespondence().get());
+        update(event.getSelectedCorrespondence().get());
+    }
+
+    @Override
+    public void correspondenceSelected(ru.yaal.seflchat.service.event.Event event) {
+        update(event.getSelectedCorrespondence().get());
     }
 
     private class DeleteColumnGenerator implements Table.ColumnGenerator {
