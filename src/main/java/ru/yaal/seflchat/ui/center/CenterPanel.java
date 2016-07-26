@@ -14,9 +14,11 @@ import org.springframework.stereotype.Component;
 public class CenterPanel extends Panel {
 
     @Autowired
-    public CenterPanel(DialogNamePanel dialogNamePanel, MessagesPanel messagesPanel, NewMessagePanel newMessagePanel) {
+    public CenterPanel(DialogNamePanel dialogNamePanel, MessagesPanel messagesPanel, NewMessagePanel newMessagePanel,
+                       DialogActionsPanel dialogActionsPanel) {
         VerticalLayout layout = new VerticalLayout();
         layout.addComponent(dialogNamePanel);
+        layout.addComponent(dialogActionsPanel);
         layout.addComponent(messagesPanel);
         layout.addComponent(newMessagePanel);
         setContent(layout);
