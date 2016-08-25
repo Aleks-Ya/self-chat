@@ -1,6 +1,7 @@
 package ru.yaal.seflchat.ui.left;
 
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
@@ -19,6 +20,7 @@ import ru.yaal.seflchat.service.event.EventService;
  */
 @Slf4j
 @Component
+@UIScope
 class DialogListPanel extends Panel implements EventService.DialogAddedListener,
         EventService.DialogRemovedListener, EventService.DialogRenamedListener, EventService.CorrespondenceSelectedListener {
 

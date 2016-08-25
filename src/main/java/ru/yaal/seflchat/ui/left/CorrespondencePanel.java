@@ -1,5 +1,6 @@
 package ru.yaal.seflchat.ui.left;
 
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
+@UIScope
 public class CorrespondencePanel extends Panel {
 
     @Autowired
