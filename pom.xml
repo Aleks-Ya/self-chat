@@ -197,6 +197,7 @@
                                         </archive>
                                     </configuration>
                                 </plugin>-->
+<!--
                 <plugin>
                     <groupId>ru.yaal.maven</groupId>
                     <artifactId>write-text-files-maven-plugin</artifactId>
@@ -226,6 +227,7 @@
                         </execution>
                     </executions>
                 </plugin>
+-->
             </plugins>
         </pluginManagement>
         <plugins>
@@ -233,10 +235,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
+<!--            <plugin>
                 <groupId>ru.yaal.maven</groupId>
                 <artifactId>write-text-files-maven-plugin</artifactId>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
