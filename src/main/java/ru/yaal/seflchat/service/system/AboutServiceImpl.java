@@ -19,12 +19,14 @@ class AboutServiceImpl implements AboutService {
     @Override
     @SneakyThrows
     public String getImplementationVersion() {
-        URL url = getClass().getClassLoader().getResource("version.txt");
-        String content = null;
-        if (url != null) {
-            content = Files.lines(Paths.get(url.getFile())).collect(Collectors.joining());
+        try {
+            URL url = getClass().getClassLoader().getResource("version.txt");
+            String content = Files.lines(Paths.get(url.getFile())).collect(Collectors.joining());
+            log.info("version.txt\n{}", content);
+            return content;
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return null;
         }
-        log.info("version.txt\n{}", content);
-        return content;
     }
 }
