@@ -186,12 +186,56 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>1.2.7.RELEASE</version>
                 </plugin>
+                <!--                <plugin>
+                                    <artifactId>maven-jar-plugin</artifactId>
+                                    <version>2.4</version>
+                                    <configuration>
+                                        <archive>
+                                            <manifestEntries>
+                                                <Implementation-Version>${project.version}.${maven.build.timestamp}</Implementation-Version>
+                                            </manifestEntries>
+                                        </archive>
+                                    </configuration>
+                                </plugin>-->
+                <plugin>
+                    <groupId>ru.yaal.maven</groupId>
+                    <artifactId>write-text-files-maven-plugin</artifactId>
+                    <version>1.1</version>
+                    <configuration>
+                        <charset>UTF-8</charset>
+                        <files>
+                            <file>
+                                <path>${project.build.outputDirectory}/version.txt</path>
+                                <lines>
+                                    <line>Name: ${project.name}</line>
+                                    <line>GroupId: ${project.groupId}</line>
+                                    <line>ArtifactId: ${project.artifactId}</line>
+                                    <line>Version: ${project.version}</line>
+                                    <line>Date: ${maven.build.timestamp}</line>
+                                </lines>
+                            </file>
+                        </files>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>write-text-files</id>
+                            <phase>prepare-package</phase>
+                            <goals>
+                                <goal>write-text-files</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>ru.yaal.maven</groupId>
+                <artifactId>write-text-files-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
