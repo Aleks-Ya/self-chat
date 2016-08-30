@@ -12,4 +12,37 @@
 
 	<artifactId>selfchat</artifactId>
 	<packaging>war</packaging>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-bom</artifactId>
+				<version>7.6.6</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<dependencies>
+	<dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-client-compiled</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-themes</artifactId>
+        </dependency>
+               <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+	</dependencies>
+
 </project>

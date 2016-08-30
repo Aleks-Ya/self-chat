@@ -22,13 +22,6 @@
 
     <dependencyManagement>
         <dependencies>
-           <dependency>
-                <groupId>com.vaadin</groupId>
-                <artifactId>vaadin-bom</artifactId>
-                <version>7.6.6</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -90,18 +83,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client-compiled</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-themes</artifactId>
-        </dependency>
-        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
@@ -111,11 +92,6 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
             <version>1.9.2.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-spring-boot-starter</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
