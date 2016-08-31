@@ -20,4 +20,30 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>openshiftserver</id>
+			<activation>
+				<property>
+					<name>env.OPENSHIFT_APPLICATION</name>
+					<value>openshiftserver</value>
+				</property>
+			</activation>
+			<build>
+				<finalName>selfchat-server</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+							<outputDirectory>deployments</outputDirectory>
+							<warName>ROOT</warName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
