@@ -14,7 +14,7 @@ import ru.yaal.selfchat.server.service.JsonService;
 import ru.yaal.selfchat.server.service.UserService;
 
 @RestController
-public class ServerController {
+public class UserController {
 	
 	@Autowired
 	private UserService userService;
