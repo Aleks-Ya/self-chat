@@ -1,10 +1,24 @@
 package ru.yaal.selfchat.server.data;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class UserEntity {
-	private int id;
+	private Integer id;
 	private String login;
 	private String passwordHash;
+	
+	public UserEntity withId(Integer id) {
+		return new UserEntity(id, this.login, this.passwordHash);
+	}
+
+	public UserEntity withLogin(String login) {
+		return new UserEntity(this.id, login, this.passwordHash);
+	}
 }
