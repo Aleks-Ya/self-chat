@@ -15,19 +15,19 @@ import ru.yaal.selfchat.server.service.UserService;
 
 @RestController
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 
 	@Autowired
 	private JsonService jsonService;
-	
+
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public String createUser(@RequestBody UserEntity user) {
 		final UserEntity newUser = userService.createUser(user);
 		return jsonService.userToJson(newUser);
 	}
-	
+
 	@RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
 	public String getUser(@PathVariable int userId) {
 		final UserEntity user = userService.getUser(userId);
@@ -46,7 +46,7 @@ public class UserController {
 		return String.valueOf(userService.deleteUser(userId));
 	}
 
-	@RequestMapping(value = "/users}", method = RequestMethod.GET)
+	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getAllUsers() {
 		final List<UserEntity> allUsers = userService.getAllUsers();
 		return jsonService.usersToJson(allUsers);
