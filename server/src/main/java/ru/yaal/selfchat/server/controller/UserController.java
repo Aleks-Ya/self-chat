@@ -22,6 +22,9 @@ public class UserController {
 	@Autowired
 	private JsonService jsonService;
 
+	/**
+	 * Test: curl -H "Content-Type: application/json" -X POST --data "{id: 1, login: aleks, passwordHash: abc}" localhost:8080/user
+	 */
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public String createUser(@RequestBody UserEntity user) {
 		final UserEntity newUser = userService.createUser(user);
@@ -46,6 +49,9 @@ public class UserController {
 		return String.valueOf(userService.deleteUser(userId));
 	}
 
+	/**
+	 * Test: curl localhost:8080/users
+	 */
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getAllUsers() {
 		final List<UserEntity> allUsers = userService.getAllUsers();
