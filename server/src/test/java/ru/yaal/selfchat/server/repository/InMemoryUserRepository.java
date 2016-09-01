@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.yaal.selfchat.server.data.UserEntity;
 
 @Component
-public class UserRepositoryMock implements UserRespository {
+public class InMemoryUserRepository implements UserRespository {
 
 	private final Map<Integer, UserEntity> users = new HashMap<>();
 	private int nextId = 0;
