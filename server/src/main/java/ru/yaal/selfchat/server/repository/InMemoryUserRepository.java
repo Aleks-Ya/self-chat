@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import ru.yaal.selfchat.server.data.UserEntity;
+import ru.yaal.selfchat.model.UserEntity;
 
 @Component
 public class InMemoryUserRepository implements UserRespository {

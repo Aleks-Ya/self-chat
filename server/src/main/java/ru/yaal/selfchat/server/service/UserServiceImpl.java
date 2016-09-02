@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ru.yaal.selfchat.server.data.UserEntity;
+import ru.yaal.selfchat.model.UserEntity;
 import ru.yaal.selfchat.server.repository.UserRespository;
 
 @Component

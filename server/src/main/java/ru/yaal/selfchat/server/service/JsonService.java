@@ -2,7 +2,8 @@ package ru.yaal.selfchat.server.service;
 
 import java.util.List;
 
-import ru.yaal.selfchat.server.data.UserEntity;
+import ru.yaal.selfchat.model.UserEntity;
+
 
 public interface JsonService {
 

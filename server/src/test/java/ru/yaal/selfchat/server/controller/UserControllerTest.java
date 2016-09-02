@@ -6,8 +6,8 @@ import static org.hamcrest.Matchers.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import ru.yaal.selfchat.model.UserEntity;
 import ru.yaal.selfchat.server.BaseSpringTest;
-import ru.yaal.selfchat.server.data.UserEntity;
 import ru.yaal.selfchat.server.service.JsonService;
 
 public class UserControllerTest extends BaseSpringTest {

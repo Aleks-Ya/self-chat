@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.data;
+package ru.yaal.selfchat.model;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
