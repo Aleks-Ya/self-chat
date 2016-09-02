@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.config;
+package ru.yaal.selfchat.server.config.dispatcher;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import ru.yaal.selfchat.server.controller.UserConverter;
 
 @Configuration
-public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
+class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
 	@Autowired
 	private UserConverter userConverter;

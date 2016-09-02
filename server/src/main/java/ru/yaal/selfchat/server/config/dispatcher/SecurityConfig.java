@@ -1,8 +1,7 @@
-package ru.yaal.selfchat.server.config;
+package ru.yaal.selfchat.server.config.dispatcher;
 
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SecurityConfig {
-
+class SecurityConfig {
 }

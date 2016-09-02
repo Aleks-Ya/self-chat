@@ -9,16 +9,19 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import ru.yaal.selfchat.server.config.dispatcher.DispatcherServletConfig;
+import ru.yaal.selfchat.server.config.root.RootConfig;
+
 public class AppInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext container) throws ServletException {
 		AnnotationConfigWebApplicationContext rootContext = new AnnotationConfigWebApplicationContext();
-		rootContext.register(AppConfig.class);
+		rootContext.register(RootConfig.class);
 		container.addListener(new ContextLoaderListener(rootContext));
 
 		AnnotationConfigWebApplicationContext dispatcherContext = new AnnotationConfigWebApplicationContext();
-		dispatcherContext.register(AppConfig.class);
+		dispatcherContext.register(DispatcherServletConfig.class);
 
 		ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher",
 				new DispatcherServlet(dispatcherContext));
