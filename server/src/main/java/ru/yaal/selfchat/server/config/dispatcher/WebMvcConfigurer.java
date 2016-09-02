@@ -17,7 +17,6 @@ class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
-		assert userConverter != null;
-		converters.add(userConverter);
+		converters.add(0, userConverter);
 	}
 }

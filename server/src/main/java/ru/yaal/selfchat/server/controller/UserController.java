@@ -23,7 +23,7 @@ public class UserController {
 	private JsonService jsonService;
 
 	/**
-	 * Test: curl -H "Content-Type: application/json" -X POST --data "{id: 1, login: aleks, passwordHash: abc}" localhost:8080/user
+	 * Test: curl -H "Content-Type: application/json" -X POST --data "{id: 1, login: aleks, passwordHash: abc}" localhost:8080/server-1.0/user
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public String createUser(@RequestBody UserEntity user) {
@@ -50,7 +50,7 @@ public class UserController {
 	}
 
 	/**
-	 * Test: curl localhost:8080/users
+	 * Test: curl localhost:8080/server-1.0/users
 	 */
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getAllUsers() {
