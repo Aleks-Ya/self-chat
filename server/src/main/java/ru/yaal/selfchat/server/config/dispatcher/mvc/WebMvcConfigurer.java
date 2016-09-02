@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.config.dispatcher;
+package ru.yaal.selfchat.server.config.dispatcher.mvc;
 
 import java.util.List;
 
