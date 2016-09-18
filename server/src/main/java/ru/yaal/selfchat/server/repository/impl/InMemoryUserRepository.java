@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.repository;
+package ru.yaal.selfchat.server.repository.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,10 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import ru.yaal.selfchat.model.UserEntity;
+import ru.yaal.selfchat.server.repository.UserRespository;
 
 @Component
-public class InMemoryUserRepository implements UserRespository {
+class InMemoryUserRepository implements UserRespository {
 
 	private final Map<Integer, UserEntity> users = new HashMap<>();
 	private int nextId = 0;
