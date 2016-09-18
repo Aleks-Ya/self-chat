@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import ru.yaal.selfchat.domian.DomainEntity;
 
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class AuthorityEntity {
+public class AuthorityEntity implements DomainEntity {
 	private Integer id;
 	private String name;
 	

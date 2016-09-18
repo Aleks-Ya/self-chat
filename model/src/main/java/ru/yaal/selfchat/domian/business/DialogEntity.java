@@ -6,12 +6,13 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
+import ru.yaal.selfchat.domian.DomainEntity;
 
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class DialogEntity {
+public class DialogEntity implements DomainEntity {
 	private Integer id;
 	private String name;
 	private List<MessageEntity> messages;
