@@ -9,8 +9,7 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import ru.yaal.selfchat.server.config.dispatcher.DispatcherServletConfig;
-import ru.yaal.selfchat.server.config.root.RootConfig;
+import ru.yaal.selfchat.server.api.rest.config.DispatcherServletConfig;
 
 public class AppInitializer implements WebApplicationInitializer {
 
