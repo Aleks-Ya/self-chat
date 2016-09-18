@@ -1,17 +1,6 @@
 package ru.yaal.selfchat.server.repository;
 
-import java.util.List;
+import ru.yaal.selfchat.domian.security.AuthorityEntity;
 
-import ru.yaal.selfchat.domian.security.UserEntity;
-
-public interface AuthorityRespository {
-	UserEntity create(UserEntity user);
-
-	UserEntity get(int userId);
-
-	List<UserEntity> getAll();
-	
-	UserEntity update(UserEntity user);
-
-	boolean delete(int userId);
+public interface AuthorityRespository extends Crud<AuthorityEntity>{
 }
