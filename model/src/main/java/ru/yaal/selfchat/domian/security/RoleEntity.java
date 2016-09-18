@@ -12,11 +12,12 @@ import ru.yaal.selfchat.domian.DomainEntity;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class RoleEntity implements DomainEntity {
+public class RoleEntity implements DomainEntity<RoleEntity> {
 	private Integer id;
 	private String name;
 	private List<AuthorityEntity> authorities;
 	
+	@Override
 	public RoleEntity withId(Integer id) {
 		return new RoleEntity(id, this.name, this.authorities);
 	}

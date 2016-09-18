@@ -10,9 +10,10 @@ import ru.yaal.selfchat.domian.DomainEntity;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class SettingsEntity implements DomainEntity {
+public class SettingsEntity implements DomainEntity<SettingsEntity> {
 	private Integer id;
 	
+	@Override
 	public SettingsEntity withId(Integer id) {
 		return new SettingsEntity(id);
 	}

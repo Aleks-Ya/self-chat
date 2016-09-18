@@ -12,11 +12,12 @@ import ru.yaal.selfchat.domian.DomainEntity;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class DialogEntity implements DomainEntity {
+public class DialogEntity implements DomainEntity<DialogEntity> {
 	private Integer id;
 	private String name;
 	private List<MessageEntity> messages;
 	
+	@Override
 	public DialogEntity withId(Integer id) {
 		return new DialogEntity(id, this.name, this.messages);
 	}

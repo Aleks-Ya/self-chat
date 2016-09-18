@@ -13,11 +13,12 @@ import ru.yaal.selfchat.domian.security.UserEntity;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class CorrespondenceEntity implements DomainEntity {
+public class CorrespondenceEntity implements DomainEntity<CorrespondenceEntity>{
 	private Integer id;
 	private UserEntity user;
 	private List<DialogEntity> roles;
 
+	@Override
 	public CorrespondenceEntity withId(Integer id) {
 		return new CorrespondenceEntity(id, this.user, this.roles);
 	}

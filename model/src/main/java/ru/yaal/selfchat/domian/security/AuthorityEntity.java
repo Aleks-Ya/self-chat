@@ -10,10 +10,11 @@ import ru.yaal.selfchat.domian.DomainEntity;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class AuthorityEntity implements DomainEntity {
+public class AuthorityEntity implements DomainEntity<AuthorityEntity> {
 	private Integer id;
 	private String name;
 	
+	@Override
 	public AuthorityEntity withId(Integer id) {
 		return new AuthorityEntity(id, this.name);
 	}

@@ -10,11 +10,12 @@ import ru.yaal.selfchat.domian.DomainEntity;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class MessageEntity implements DomainEntity {
+public class MessageEntity implements DomainEntity<MessageEntity> {
 	private Integer id;
 	private String content;
 	private Alignment alignment;
 	
+	@Override
 	public MessageEntity withId(Integer id) {
 		return new MessageEntity(id, this.content, this.alignment);
 	}
