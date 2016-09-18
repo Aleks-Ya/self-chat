@@ -7,7 +7,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import ru.yaal.selfchat.model.UserEntity;
+import ru.yaal.selfchat.domian.UserEntity;
 import ru.yaal.selfchat.server.repository.UserRespository;
 
 @Component

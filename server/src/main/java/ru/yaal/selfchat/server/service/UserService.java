@@ -2,7 +2,7 @@ package ru.yaal.selfchat.server.service;
 
 import java.util.List;
 
-import ru.yaal.selfchat.model.UserEntity;
+import ru.yaal.selfchat.domian.UserEntity;
 
 
 public interface UserService {
