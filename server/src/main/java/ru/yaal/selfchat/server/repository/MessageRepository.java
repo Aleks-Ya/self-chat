@@ -2,7 +2,7 @@ package ru.yaal.selfchat.server.repository;
 
 import java.util.List;
 
-import ru.yaal.selfchat.domian.UserEntity;
+import ru.yaal.selfchat.domian.security.UserEntity;
 
 public interface MessageRepository {
 	UserEntity create(UserEntity user);

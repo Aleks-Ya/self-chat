@@ -16,7 +16,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Component;
 
-import ru.yaal.selfchat.domian.UserEntity;
+import ru.yaal.selfchat.domian.security.UserEntity;
 import ru.yaal.selfchat.server.service.JsonService;
 
 @Component

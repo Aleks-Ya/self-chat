@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import ru.yaal.selfchat.domian.UserEntity;
+import ru.yaal.selfchat.domian.security.UserEntity;
 import ru.yaal.selfchat.server.service.JsonService;
 import ru.yaal.selfchat.server.service.UserService;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import ru.yaal.selfchat.domian.UserEntity;
+import ru.yaal.selfchat.domian.security.UserEntity;
 
 @Component
 public class JsonServiceImpl implements JsonService {
