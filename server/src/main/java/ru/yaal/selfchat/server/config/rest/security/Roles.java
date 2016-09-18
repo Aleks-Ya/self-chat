@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.api.rest.config;
+package ru.yaal.selfchat.server.config.rest.security;
 
 public interface Roles {
 	String ANONYMOUS = "anonymous";
