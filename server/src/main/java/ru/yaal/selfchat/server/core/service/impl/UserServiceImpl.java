@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.core.service;
+package ru.yaal.selfchat.server.core.service.impl;
 
 import java.util.List;
 
@@ -7,9 +7,10 @@ import org.springframework.stereotype.Component;
 
 import ru.yaal.selfchat.domian.security.UserEntity;
 import ru.yaal.selfchat.server.core.repository.UserRespository;
+import ru.yaal.selfchat.server.core.service.UserService;
 
 @Component
-public class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRespository userRepo;

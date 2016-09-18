@@ -1,4 +1,4 @@
-package ru.yaal.selfchat.server.core.service;
+package ru.yaal.selfchat.server.core.service.impl;
 
 import java.util.List;
 
@@ -8,9 +8,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import ru.yaal.selfchat.domian.security.UserEntity;
+import ru.yaal.selfchat.server.core.service.JsonService;
 
 @Component
-public class JsonServiceImpl implements JsonService {
+class JsonServiceImpl implements JsonService {
 	private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 	@Override
